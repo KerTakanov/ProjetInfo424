@@ -35,6 +35,8 @@ public class Main
 		while (it.hasNext()) {
 			System.out.println(it.next().toString());
 		}
+		PPMImage img = new PPMImage("src/Oryphis/assets/pbmlib.ppm");
+		img.save("src/Oryphis/assets/pbmlib_2.ppm");
 
 		DrawImage di = new DrawImage("src/Oryphis/assets/pbmlib.ppm");
 	}

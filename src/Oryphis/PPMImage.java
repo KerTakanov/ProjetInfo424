@@ -5,7 +5,10 @@ import Oryphis.DrawImage;
 
 import java.util.ArrayList;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.Color;
@@ -26,6 +29,56 @@ public class PPMImage {
 		_createPixelMap(in);
 	}
 
+	//Sauvegarde
+	public void save(String path)
+	throws java.io.FileNotFoundException, java.io.IOException {
+		File file = new File(path);
+		if (!file.exists())
+			file.createNewFile();
+
+		BufferedWriter out = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+		_savePixelMap(out);
+	}
+
+	//Accession pixels
+	public Pixel pixelAt(int x, int y) {
+		return pixels[x][y];
+	}
+
+	public Pixel[][] pixelMap() {
+		return pixels;
+	}
+
+	public int r(int x, int y) {
+		return pixels[x][y].r;
+	}
+
+	public int g(int x, int y) {
+		return pixels[x][y].g;
+	}
+
+	public int b(int x, int y) {
+		return pixels[x][y].b;
+	}
+
+	//Manipulation pixels
+	public void setPixel(int x, int y, Pixel p) {
+		pixels[x][y] = p;
+	}
+
+	public void r(int x, int y, int _r) {
+		pixels[x][y].r = _r;
+	}
+
+	public void g(int x, int y, int _g) {
+		pixels[x][y].g = _g;
+	}
+
+	public void b(int x, int y, int _b) {
+		pixels[x][y].b = _b;
+	}
+
+	//Accesseurs
 	public int getWidth() {
 		return this.width;
 	}
@@ -42,6 +95,7 @@ public class PPMImage {
 		return new Color(pixels[x][y].r, pixels[x][y].g, pixels[x][y].b);
 	}
 
+	//Privés
 	private String _nextLine(BufferedReader in) throws java.io.IOException {
 		String line = in.readLine().trim();
 		while (line.charAt(0) == '#')
@@ -79,5 +133,19 @@ public class PPMImage {
 				y++;
 			}
 		}
+	}
+
+	private void _savePixelMap(BufferedWriter out) throws java.io.IOException {
+		out.write(format + "\n");
+		out.write(Integer.toString(width) + " " + Integer.toString(height) + "\n");		
+
+		for(int y = 0; y < width; y++) {
+			for(int x = 0; x < width; x++) {
+				out.write(Integer.toString(pixels[x][y].r) + "\n"
+						+ Integer.toString(pixels[x][y].g) + "\n"
+						+ Integer.toString(pixels[x][y].b) + "\n");
+			}
+		}
+		out.close();
 	}
 }
