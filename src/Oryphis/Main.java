@@ -7,6 +7,8 @@ import Oryphis.Argument;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+import java.io.File;
+
 public class Main
 {
 	public static void main(String[] args)
@@ -34,6 +36,6 @@ public class Main
 			System.out.println(it.next().toString());
 		}
 
-		DrawImage di = new DrawImage("assets/pbmlib.ppm");
+		DrawImage di = new DrawImage("src/Oryphis/assets/pbmlib.ppm");
 	}
 }

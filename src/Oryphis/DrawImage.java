@@ -25,13 +25,14 @@ public class DrawImage extends JFrame {
 		img = new PPMImage(path);
 		this.initialize();
 		this.setVisible(true);
+		this.setSize(new Dimension(img.getWidth()+15, img.getHeight()+15));
 	}
 
 	private void initialize() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		c = getContentPane();
 		JPanel panel = new ImagePanel();
-		panel.setPreferredSize(new Dimension(img.getWidth()+5, img.getHeight()+5));
+		panel.setSize(new Dimension(img.getWidth()+5, img.getHeight()+5));
 		c.add(panel);
 	}
 
