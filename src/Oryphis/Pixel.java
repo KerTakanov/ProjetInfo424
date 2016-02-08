@@ -1,4 +1,4 @@
-package src.ppm;
+package src.Oryphis;
 
 class Pixel {
 	public int r;

@@ -1,5 +1,5 @@
-package src;
-import src.ppm.PPMImage;
+package src.Oryphis;
+import src.Oryphis.PPMImage;
 
 import java.awt.Color;
 import java.awt.Container;

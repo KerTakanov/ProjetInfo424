@@ -1,7 +1,9 @@
-import src.ppm.PPMImage;
-import src.DrawImage;
+package src.Oryphis;
 
-import src.Argument;
+import src.Oryphis.PPMImage;
+import src.Oryphis.DrawImage;
+
+import src.Oryphis.Argument;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
