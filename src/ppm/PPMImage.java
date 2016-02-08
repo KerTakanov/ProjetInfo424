@@ -1,59 +1,66 @@
 package src.ppm;
 
-import java.util.ArrayList;
 import src.ppm.Pixel;
 
-public enum Format {
-	P1,
-	P2,
-	P3
-}
-//P1 : PBM
-//P2 : PGM
-//P3 : PPM
+import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-class UnrecognizedFormatException extends Exception {
-	public UnrecognizedFormatException() {
-		System.out.println("Format non reconnu !");
-	}
-}
-
-class PPMImage {
+public class PPMImage {
 	private int width;
 	private int height;
-	private Format format;
+	private String format;
 	private ArrayList<ArrayList<Pixel>> pixels;
 
-	public PPMImage(String path) {
-		BufferedReader in = new BufferedReader(new FileReader(path));
-		
-		getFormat(nextLine(in));
-		getSize(nextLine(in));
-		}
+	public static void main(String[] args)
+	{
+		PPMImage img = new PPMImage("pbmlib.ppm");
+		System.out.println(img.getWidth());
+		System.out.println(this.getHeight());
+		System.out.println(this.getFormat());
 	}
 
-	private nextLine(BufferedReader in) {
+	public PPMImage(String path) 
+	throws java.io.FileNotFoundException, java.io.IOException {
+		BufferedReader in = new BufferedReader(new FileReader(path));
+		
+		_getFormat(_nextLine(in));
+		_getSize(_nextLine(in));
+	}
+
+	public int getWidth() {
+		return this.width;
+	}
+
+	public int getHeight() {
+		return this.height;
+	}
+
+	public String getFormat() {
+		return this.format;
+	}
+
+	private String _nextLine(BufferedReader in) throws java.io.IOException {
 		String line = in.readLine().trim();
-		while (line[0] == "#")
+		while (line.charAt(0) == '#')
 			line = in.readLine().trim();
 
 		return line;
 	}
 
-	private getFormat(String line) {
-		switch(line) {
-			case "P1": this.format = Format.P1; break;
-			case "P2": this.format = Format.P2; break;
-			case "P3": this.format = Format.P3; break;
-		default: throw new UnrecognizedFormatException();
+	private void _getFormat(String line) {
+		if(line == "P3")
+			this.format = "P3";
 	}
 
-	private getSize(String line) {
+	private void _getSize(String line) {
 		int pos = line.indexOf(" ");
 		String lvalue = line.substring(0, pos);
 		String rvalue = line.substring(pos + 1);
 
-		this.width = Integer.parseValue(lvalue);
-		this.height = Integer.parseValue(rvalue);
+		this.width = Integer.parseInt(lvalue);
+		this.height = Integer.parseInt(rvalue);
 	}
 }
