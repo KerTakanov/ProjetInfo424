@@ -26,9 +26,18 @@ class PPMImage {
 
 	public PPMImage(String path) {
 		BufferedReader in = new BufferedReader(new FileReader(path));
-		String line;
-		getFormat(in.readLine().trim());
+		
+		getFormat(nextLine(in));
+		getSize(nextLine(in));
 		}
+	}
+
+	private nextLine(BufferedReader in) {
+		String line = in.readLine().trim();
+		while (line[0] == "#")
+			line = in.readLine().trim();
+
+		return line;
 	}
 
 	private getFormat(String line) {
@@ -37,5 +46,14 @@ class PPMImage {
 			case "P2": this.format = Format.P2; break;
 			case "P3": this.format = Format.P3; break;
 		default: throw new UnrecognizedFormatException();
+	}
+
+	private getSize(String line) {
+		int pos = line.indexOf(" ");
+		String lvalue = line.substring(0, pos);
+		String rvalue = line.substring(pos + 1);
+
+		this.width = Integer.parseValue(lvalue);
+		this.height = Integer.parseValue(rvalue);
 	}
 }

@@ -17,7 +17,7 @@ public class Oryphis
 				argst.add(actarg);
 			}
 			else {
-				actarg.addValue(actargs);
+				actarg.addParameter(actargs);
 			}
 		}
 

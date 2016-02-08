@@ -5,50 +5,50 @@ import java.util.ListIterator;
 public class Argument
 {
 	private String argument;
-	private ArrayList<String> values;
+	private ArrayList<String> parameters;
 
 	public Argument() {
 		this.argument = "";
-		this.values = new ArrayList<String>();
+		this.parameters = new ArrayList<String>();
 	}
 
 	public Argument(String argument) {
 		this.argument = argument;
-		this.values = new ArrayList<String>();
+		this.parameters = new ArrayList<String>();
 	}
 
-	public Argument(String argument, ArrayList<String> values) {
+	public Argument(String argument, ArrayList<String> parameters) {
 		this.argument = argument;
-		this.values = values;
+		this.parameters = parameters;
 	}
 
 	public String getArg() {
 		return this.argument;
 	}
 
-	public ArrayList<String> getValues() {
-		return this.values;
+	public ArrayList<String> getParameters() {
+		return this.parameters;
 	}
 
-	public String getValue(int index) {
-		return this.values.get(index);
+	public String getParameter(int index) {
+		return this.parameters.get(index);
 	}
 
-	public int getIntValue(int index) {
-		return Integer.parseInt(this.values.get(index));
+	public int getIntParameter(int index) {
+		return Integer.parseInt(this.parameters.get(index));
 	}
 
-	public void setValue(int index, String value) {
-		this.values.set(index, value);
+	public void setParameter(int index, String parameter) {
+		this.parameters.set(index, parameter);
 	}
 
-	public void addValue(String value) {
-		this.values.add(value);
+	public void addParameter(String parameter) {
+		this.parameters.add(parameter);
 	}
 
 	public String toString() {
 		String params = "";
-		ListIterator<String> it = this.values.listIterator();
+		ListIterator<String> it = this.parameters.listIterator();
 		while (it.hasNext()) {
 			params += " " + it.next();
 		}
