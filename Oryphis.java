@@ -1,3 +1,5 @@
+import src.ppm.PPMImage;
+
 import src.Argument;
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -5,6 +7,7 @@ import java.util.ListIterator;
 public class Oryphis
 {
 	public static void main(String[] args)
+	throws java.io.FileNotFoundException, java.io.IOException
 	{
 		ArrayList<Argument> argst = new ArrayList<Argument>();
 		Argument actarg = new Argument();
@@ -27,5 +30,10 @@ public class Oryphis
 		while (it.hasNext()) {
 			System.out.println(it.next().toString());
 		}
+
+		PPMImage img = new PPMImage("src/ppm/pbmlib.ppm");
+		System.out.println(img.getWidth());
+		System.out.println(img.getHeight());
+		System.out.println(img.getFormat());
 	}
 }

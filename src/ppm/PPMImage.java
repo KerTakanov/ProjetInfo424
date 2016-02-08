@@ -14,14 +14,6 @@ public class PPMImage {
 	private String format;
 	private ArrayList<ArrayList<Pixel>> pixels;
 
-	public static void main(String[] args)
-	{
-		PPMImage img = new PPMImage("pbmlib.ppm");
-		System.out.println(img.getWidth());
-		System.out.println(this.getHeight());
-		System.out.println(this.getFormat());
-	}
-
 	public PPMImage(String path) 
 	throws java.io.FileNotFoundException, java.io.IOException {
 		BufferedReader in = new BufferedReader(new FileReader(path));
@@ -51,8 +43,7 @@ public class PPMImage {
 	}
 
 	private void _getFormat(String line) {
-		if(line == "P3")
-			this.format = "P3";
+		this.format = line;
 	}
 
 	private void _getSize(String line) {
@@ -62,5 +53,13 @@ public class PPMImage {
 
 		this.width = Integer.parseInt(lvalue);
 		this.height = Integer.parseInt(rvalue);
+	}
+
+	private void _createPixelMap(BufferedReader in) throws java.io.IOException {
+		String line = _nextLine(in);
+		while(line != null) {
+
+			line = _nextLine(in);
+		}
 	}
 }
