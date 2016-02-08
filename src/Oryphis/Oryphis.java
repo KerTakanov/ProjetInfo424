@@ -1,4 +1,5 @@
 import src.ppm.PPMImage;
+import src.DrawImage;
 
 import src.Argument;
 import java.util.ArrayList;
@@ -31,9 +32,6 @@ public class Oryphis
 			System.out.println(it.next().toString());
 		}
 
-		PPMImage img = new PPMImage("src/ppm/pbmlib.ppm");
-		System.out.println(img.getWidth());
-		System.out.println(img.getHeight());
-		System.out.println(img.getFormat());
+		DrawImage di = new DrawImage("src/ppm/pbmlib.ppm");
 	}
 }
