@@ -4,6 +4,8 @@ import Oryphis.PPMImage;
 import Oryphis.DrawImage;
 import Oryphis.Argument;
 
+import Oryphis.filtres.Laplacien;
+
 import java.util.ArrayList;
 import java.util.ListIterator;
 
@@ -36,8 +38,9 @@ public class Main
 			System.out.println(it.next().toString());
 		}
 		PPMImage img = new PPMImage("src/Oryphis/assets/pbmlib.ppm");
+		new Laplacien(img);
 		img.save("src/Oryphis/assets/pbmlib_2.ppm");
 
-		DrawImage di = new DrawImage("src/Oryphis/assets/pbmlib.ppm");
+		DrawImage di = new DrawImage("src/Oryphis/assets/pbmlib_2.ppm");
 	}
 }

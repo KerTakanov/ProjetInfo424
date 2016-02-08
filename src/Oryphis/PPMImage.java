@@ -19,6 +19,13 @@ public class PPMImage {
 	private String format;
 	private Pixel[][] pixels;
 
+	public PPMImage(int w, int h, String format) {
+		width = w;
+		height = h;
+		format = format;
+		pixels = new Pixel[width][height];
+	}
+
 	public PPMImage(String path) 
 	throws java.io.FileNotFoundException, java.io.IOException {
 		BufferedReader in = new BufferedReader(new FileReader(path));
