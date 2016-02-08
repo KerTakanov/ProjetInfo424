@@ -34,6 +34,6 @@ public class Main
 			System.out.println(it.next().toString());
 		}
 
-		DrawImage di = new DrawImage("src/ppm/pbmlib.ppm");
+		DrawImage di = new DrawImage("assets/pbmlib.ppm");
 	}
 }
