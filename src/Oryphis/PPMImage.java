@@ -1,7 +1,7 @@
-package src.Oryphis;
+package Oryphis;
 
-import src.Oryphis.Pixel;
-import src.Oryphis.DrawImage;
+import Oryphis.Pixel;
+import Oryphis.DrawImage;
 
 import java.util.ArrayList;
 import java.io.BufferedReader;

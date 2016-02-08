@@ -1,13 +1,13 @@
-package src.Oryphis;
+package Oryphis;
 
-import src.Oryphis.PPMImage;
-import src.Oryphis.DrawImage;
+import Oryphis.PPMImage;
+import Oryphis.DrawImage;
+import Oryphis.Argument;
 
-import src.Oryphis.Argument;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-public class Oryphis
+public class Main
 {
 	public static void main(String[] args)
 	throws java.io.FileNotFoundException, java.io.IOException
