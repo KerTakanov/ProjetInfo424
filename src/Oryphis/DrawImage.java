@@ -19,10 +19,14 @@ public class DrawImage extends JFrame {
 	private Container c;
 	private PPMImage img;
 
+	/*
+	 * 
+	 */
+	
 	public DrawImage(String path) 
 	throws java.io.FileNotFoundException, java.io.IOException {
 		super();
-		img = new PPMImage(path);
+		img = new PPMImage(path); 
 		this.initialize();
 		this.setVisible(true);
 		this.setSize(new Dimension(img.getWidth()+15, img.getHeight()+15));

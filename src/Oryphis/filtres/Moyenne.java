@@ -1,6 +1,7 @@
 package Oryphis.filtres;
 
 import Oryphis.PPMImage;
+import Oryphis.Pixel;
 
 class Moyenne {
 	//TODO: Compléter les arguments

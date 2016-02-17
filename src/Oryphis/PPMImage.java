@@ -26,6 +26,14 @@ public class PPMImage {
 		pixels = new Pixel[width][height];
 	}
 
+	public PPMImage(PPMImage img) {
+		this.width = img.getWidth();
+		this.height = img.getHeight();
+		this.format = img.getFormat();
+		this.pixels = new Pixel[width][height];
+		this.pixels = img.getPixels();
+	}
+
 	public PPMImage(String path) 
 	throws java.io.FileNotFoundException, java.io.IOException {
 		BufferedReader in = new BufferedReader(new FileReader(path));
@@ -100,6 +108,10 @@ public class PPMImage {
 
 	public Color colorAt(int x, int y) {
 		return new Color(pixels[x][y].r, pixels[x][y].g, pixels[x][y].b);
+	}
+
+	public Pixel[][] getPixels() {
+		return pixels;
 	}
 
 	//Privés
