@@ -20,14 +20,13 @@ public class PPMImage {
 	private Pixel[][] pixels;
 
 	/**
-	  * 
-	  * Permet de créer une image de largeur w, hauteur h et de format format.
-	  * 
-	  * @param w: la largeur de l'image
-	  * @param h: la hauteur de l'image
-	  * @param format: le format de l'image
-	  * 
-	  */
+	 * { constructor_description }
+	 *
+	 * @param      w       { parameter_description }
+	 * @param      h       { parameter_description }
+	 * @param      format  { parameter_description }
+	 * 
+	 */
 	public PPMImage(int w, int h, String format) {
 		width = w;
 		height = h;
