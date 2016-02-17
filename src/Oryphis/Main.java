@@ -18,7 +18,8 @@ public class Main
 	{
 		ArrayList<Argument> argst = new ArrayList<Argument>();
 		Argument actarg = new Argument();
-		String actargs;
+		String actargs, imgpath = "";
+
 		for(int i = 0; i < args.length; i++) {
 			actargs = args[i];
 
@@ -35,12 +36,12 @@ public class Main
 
 		ListIterator<Argument> it = argst.listIterator();
 		while (it.hasNext()) {
-			System.out.println(it.next().toString());
+			actarg = it.next();
+			if(actarg.getArg().equals("-p")) {
+				imgpath = actarg.getParameter(0);
+			}
 		}
-		PPMImage img = new PPMImage("src/Oryphis/assets/pbmlib.ppm");
-		new Laplacien(img);
-		img.save("src/Oryphis/assets/pbmlib_2.ppm");
 
-		DrawImage di = new DrawImage("src/Oryphis/assets/pbmlib_2.ppm");
+		DrawImage di = new DrawImage(imgpath);
 	}
 }
