@@ -2,6 +2,9 @@ package Oryphis;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+/**
+ * Classe gérant un argument de la ligne de commande
+ */
 public class Argument
 {
 	private String argument;
