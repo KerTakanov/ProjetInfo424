@@ -7,23 +7,24 @@ class Pixel {
 	public int b;
 
 	/**
-	  * 
-	  * Creer un pixel de type RGB
-	  *
-	  * Etant donnée les données RGB, cette fonction créer un pixel
-	  *
-	  * @param : r = la valeur de l'intensité de la couleur rouge (red)
-	  * @param : g = la valeur de l'intensité de la couleur vert (green)
-	  * @param : b = la valeur de l'intensité de la couleur bleu (blue)
-	  * 
-	  */
-
+	 * Créé un pixel avec les couleurs RGB.
+	 *
+	 * @param      r     la composante rouge
+	 * @param      g     la composante verte
+	 * @param      b     la composante bleue
+	 */
 	public Pixel(int r, int g, int b) {
 		this.r = r;
 		this.g = g;
 		this.b = b;
 	}
 
+	/**
+	 * Multiplie toutes les composantes d'un pixel par un coefficient.
+	 * Ne permet pas de dépasser 255.
+	 *
+	 * @param      coeff  le coefficient par lequel on multiplie
+	 */
 	public void multiply(int coeff) {
 		r *= coeff;
 		g *= coeff;
