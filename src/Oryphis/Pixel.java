@@ -1,7 +1,6 @@
 package Oryphis;
 
-
-class Pixel {
+public class Pixel {
 	public int r;
 	public int g;
 	public int b;

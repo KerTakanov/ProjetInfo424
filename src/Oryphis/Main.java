@@ -16,9 +16,12 @@ public class Main
 	public static void main(String[] args)
 	throws java.io.FileNotFoundException, java.io.IOException
 	{
+		boolean laplacien = false;
+
 		ArrayList<Argument> argst = new ArrayList<Argument>();
 		Argument actarg = new Argument();
 		String actargs, imgpath = "";
+		PPMImage img;
 
 		for(int i = 0; i < args.length; i++) {
 			actargs = args[i];
@@ -40,8 +43,12 @@ public class Main
 			if(actarg.getArg().equals("-p")) {
 				imgpath = actarg.getParameter(0);
 			}
+			if(actarg.getArg().equals("lp")) {
+				laplacien = true;
+			}
 		}
-
-		DrawImage di = new DrawImage(imgpath);
+		img = new PPMImage(imgpath);
+		img = Laplacien.laplacien(img);
+		DrawImage di = new DrawImage(img);
 	}
 }

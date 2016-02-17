@@ -39,6 +39,20 @@ public class DrawImage extends JFrame {
 	}
 
 	/**
+	 * Constructeur affichant directement l'image img.
+	 *
+	 * @param      img   l'image
+	 */
+	public DrawImage(PPMImage img)
+	throws java.io.FileNotFoundException, java.io.IOException {
+		super();
+		this.img = img;
+		this.initialize();
+		this.setVisible(true);
+		this.setSize(new Dimension(img.getWidth()+15, img.getHeight()+15));
+	}
+
+	/**
 	 * Initialise la JFrame.
 	 */
 	private void initialize() {
