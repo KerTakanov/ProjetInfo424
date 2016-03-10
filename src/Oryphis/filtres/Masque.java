@@ -28,7 +28,7 @@ public class Masque {
 	 *
 	 * @return     le pixel à qui on a appliqué le filtre
 	 */
-	public Pixel appliquer(int x, int y, PPImage img) {
+	public Pixel appliquer(int x, int y, PPMImage imgori, PPMImage imgdest) {
 		int totr = 0;
 		int totg = 0;
 		int totb = 0;
