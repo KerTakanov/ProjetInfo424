@@ -335,6 +335,8 @@ public class PPMImage {
 				y++;
 			}
 		}*/
+
+		//
 		ArrayList<Integer> rgb = new ArrayList<Integer>();
 
 		while((line = in.readLine()) != null) {
