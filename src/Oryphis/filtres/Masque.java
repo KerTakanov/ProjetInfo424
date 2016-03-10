@@ -46,7 +46,13 @@ public class Masque {
 							  * masque[xo - x + offx][yo - y + offy];
 				}
 			}
-			imgdest.setColor(i, x, y, rgb[i] / diviseur);
+			rgb[i] = rgb[i] / diviseur;
+			if(rgb[i] > 255)
+				rgb[i] = 255;
+			if(rgb[i] < 0)
+				rgb[i] = 0;
+
+			imgdest.setColor(i, x, y, rgb[i]);
 		}
 	}
 

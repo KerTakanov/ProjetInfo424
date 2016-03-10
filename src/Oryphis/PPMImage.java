@@ -184,7 +184,7 @@ public class PPMImage {
 	 * 
 	 */
 
-	public void setPixel(int x, int y, Pixel p ) {
+	public void setPixel(int x, int y, Pixel p) {
 		pixels[x][y] = p;
 	}
 
