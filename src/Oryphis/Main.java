@@ -48,7 +48,6 @@ public class Main
 			}
 		}
 		img = new PPMImage(imgpath);
-		img = Laplacien.laplacien(img);
 		DrawImage di = new DrawImage(img);
 	}
 }

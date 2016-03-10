@@ -317,49 +317,34 @@ public class PPMImage {
 	 */
 
 	private void _createPixelMap(BufferedReader in) throws java.io.IOException {
-		int x = 0;
-		int y = 0;
+		int[] coords = {0, 0};
 
-		int nbPixels = width * height;
-		/* 
-		 //old
-		 
-		 for (int i = 0; i < nbPixels; i++) {
-			pixels[x][y] = new Pixel(Integer.parseInt(_nextLine(in)),
-									 Integer.parseInt(_nextLine(in)),
-									 Integer.parseInt(_nextLine(in)));
-
-			x++;
-			if(x >= width) {
-				x = 0;
-				y++;
-			}
-		}*/
-
-		//
 		ArrayList<Integer> rgb = new ArrayList<Integer>();
-
+		String line;
 		while((line = in.readLine()) != null) {
-			if (line.contains(" ")) {
-				String[] result = line.split(" ");
-				for (int i = 0; i < result.length; i++) {
-					rgb.add(Integer.parseInt(result[i]));
-					if (rgb.size() == 3) {
-						pixels[x][y] = 
-						new Pixel(rgb.get(0), rgb.get(1), rgb.get(2));
-						rgb.clear();
-					}
-				}
-			}
-			else {
-				rgb.add(Integer.parseInt(line));
+			String[] result = line.split(" ");
+			for (int i = 0; i < result.length; i++) {
+				rgb.add(Integer.parseInt(result[i]));
 				if (rgb.size() == 3) {
-					pixels[x][y] = 
-					new Pixel(rgb.get(0), rgb.get(1), rgb.get(2));
-					rgb.clear();
+					coords = __savePixel(rgb, coords);
 				}
 			}
 		}
+	}
+
+	private int[] __savePixel(ArrayList<Integer> rgb, int[] coords) {
+		int x = coords[0];
+		int y = coords[1];
+
+		pixels[x][y] =
+		new Pixel(rgb.get(0), rgb.get(1), rgb.get(2));
+		rgb.clear();
+
+		x++;
+		if (x >= width) { y++; x = 0; }
+		coords[0] = x;
+		coords[1] = y;
+		return coords;
 	}
 
 	/**
@@ -377,8 +362,8 @@ public class PPMImage {
 
 		for(int y = 0; y < width; y++) {
 			for(int x = 0; x < width; x++) {
-				out.write(Integer.toString(pixels[x][y].r) + "\n"
-						+ Integer.toString(pixels[x][y].g) + "\n"
+				out.write(Integer.toString(pixels[x][y].r) + " "
+						+ Integer.toString(pixels[x][y].g) + " "
 						+ Integer.toString(pixels[x][y].b) + "\n");
 			}
 		}
