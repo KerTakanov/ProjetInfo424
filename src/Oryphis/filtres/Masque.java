@@ -1,12 +1,13 @@
 package Oryphis.filtres;
 
-import Oryphis.PPImage;
+import Oryphis.PPMImage;
+import Oryphis.Pixel;
 /**
  * Permet de gérer un masque qui sera appliqué par un filtre.
  */
 public class Masque {
-	int[][] masque;
-	int diviseur;
+	public int[][] masque;
+	public int diviseur;
 
 	/**
 	 * Permet de créer un nouveau masque de dimension (w, h)
@@ -18,6 +19,8 @@ public class Masque {
 		this.masque = new int[w][h];
 	}
 
+	public Masque() {};
+
 	/**
 	 * Applique le masque sur un pixel.
 	 * L'image en entrée n'est pas modifiée.
@@ -28,17 +31,22 @@ public class Masque {
 	 *
 	 * @return     le pixel à qui on a appliqué le filtre
 	 */
-	public Pixel appliquer(int x, int y, PPMImage imgori, PPMImage imgdest) {
-		int totr = 0;
-		int totg = 0;
-		int totb = 0;
-		if(x > 1 && y > 1 &&
-		   x < img.getWidth() && y < img.getHeight()) {
-			for(int ix = -1; ix <= 1; ++ix) {
-				for(int iy = -1; iy <= 1; ++iy) {
-					tot += img.r(x + ix, y + iy);
+	public void appliquer(int x, int y, PPMImage imgori, PPMImage imgdest) {
+		int[] rgb = {0, 0, 0};
+
+		int offx = (masque.length-1)/2;
+		int offy = (masque[0].length-1)/2;
+
+		//On boucle sur les 3 composantes
+		for(int i = 0; i < 3; i++) {
+			//On boucle sur les pixels nous intéressant
+			for(int xo = x - offx; xo <= x + offx; xo++) {
+				for(int yo = y - offy; yo <= y + offy; yo++) {
+					rgb[i] += imgori.getColor(i, xo, yo)
+							  * masque[xo - x + offx][yo - y + offy];
 				}
 			}
+			imgdest.setColor(i, x, y, rgb[i] / diviseur);
 		}
 	}
 
@@ -77,9 +85,9 @@ public class Masque {
 		update_div();
 	}
 
-	private void update_div() {
+	public void update_div() {
 		diviseur = 0;
-		for(int x = 0; i < masque.length; ++i) {
+		for(int x = 0; x < masque.length; ++x) {
 			for(int y = 0; y < masque[x].length; ++y) {
 				diviseur += masque[x][y];
 			}

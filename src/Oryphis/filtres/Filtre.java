@@ -5,10 +5,10 @@ import Oryphis.Pixel;
 import Oryphis.filtres.Masque;
 
 public abstract class Filtre {
-	private Masque masque;
+	protected Masque masque;
 	//TODO: Compléter les arguments
 	//doc utile : http://xmcvs.free.fr/astroart/Chapitre4.pdf
-	static public PPMImage appliquer_masque(PPMImage img) {
+	public PPMImage appliquer_masque(PPMImage img) {
 		PPMImage img2 = new PPMImage(img);
 
 		for(int x = 1; x < img.getWidth() - 1; x++) {

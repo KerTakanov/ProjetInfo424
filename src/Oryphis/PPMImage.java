@@ -155,6 +155,24 @@ public class PPMImage {
 		return pixels[x][y].b;
 	}
 
+	/**
+	 * Permet de récupérer la valeur d'une composante
+	 * 0 = rouge
+	 * 1 = vert
+	 * 2 = bleu
+	 *
+	 * @param      x     coordonnée x du pixel
+	 * @param      y     coordonnée y du pixel
+	 * @param      c     numéro de la composante
+	 *
+	 * @return     la valeur de la composante c de coordonnées (x;y)
+	 *
+	 */
+
+	public int getColor(int c, int x, int y) {
+		return c == 0 ? pixels[x][y].r : c == 1 ? pixels[x][y].g : pixels[x][y].b;
+	}
+
 	//Manipulation pixels
 	
 	/**
@@ -194,6 +212,12 @@ public class PPMImage {
 
 	public void g(int x, int y, int _g) {
 		pixels[x][y].g = _g;
+	}
+
+	public void setColor(int c, int x, int y, int val) {
+		if (c == 0) pixels[x][y].r = val;
+		else if (c == 1) pixels[x][y].g = val;
+		else if (c == 2) pixels[x][y].b = val;
 	}
 
 	/**

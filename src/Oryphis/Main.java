@@ -48,6 +48,12 @@ public class Main
 			}
 		}
 		img = new PPMImage(imgpath);
+		img = new Laplacien().appliquer_masque(img);
 		DrawImage di = new DrawImage(img);
+
+		PPMImage img2 = new PPMImage(imgpath);
+		DrawImage di2 = new DrawImage(img2);
+
+		img.save("assets/output.ppm");
 	}
 }
