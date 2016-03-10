@@ -321,7 +321,10 @@ public class PPMImage {
 		int y = 0;
 
 		int nbPixels = width * height;
-		for (int i = 0; i < nbPixels; i++) {
+		/* 
+		 //old
+		 
+		 for (int i = 0; i < nbPixels; i++) {
 			pixels[x][y] = new Pixel(Integer.parseInt(_nextLine(in)),
 									 Integer.parseInt(_nextLine(in)),
 									 Integer.parseInt(_nextLine(in)));
@@ -330,6 +333,29 @@ public class PPMImage {
 			if(x >= width) {
 				x = 0;
 				y++;
+			}
+		}*/
+		ArrayList<Integer> rgb = new ArrayList<Integer>();
+
+		while((line = in.readLine()) != null) {
+			if (line.contains(" ")) {
+				String[] result = line.split(" ");
+				for (int i = 0; i < result.length; i++) {
+					rgb.add(Integer.parseInt(result[i]));
+					if (rgb.size() == 3) {
+						pixels[x][y] = 
+						new Pixel(rgb.get(0), rgb.get(1), rgb.get(2));
+						rgb.clear();
+					}
+				}
+			}
+			else {
+				rgb.add(Integer.parseInt(line));
+				if (rgb.size() == 3) {
+					pixels[x][y] = 
+					new Pixel(rgb.get(0), rgb.get(1), rgb.get(2));
+					rgb.clear();
+				}
 			}
 		}
 	}
