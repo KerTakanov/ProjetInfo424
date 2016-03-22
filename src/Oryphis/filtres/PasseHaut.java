@@ -12,10 +12,10 @@ public class PasseHaut extends Filtre{
 		this.masque = new Masque();
 		this.masque.masque = new int[][]
 							   
-							   {{-1, -1, -1},
-							    {-1, 20, -1},
-							    {-1, -1, -1}};
+							   {{0, -1, 0},
+							    {-1, 5, -1},
+							    {0, -1, 0}};
 							   
-		this.masque.update_div();
+		this.masque.diviseur = 1;
 	}
 }

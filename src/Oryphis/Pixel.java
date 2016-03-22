@@ -1,5 +1,7 @@
 package Oryphis;
 
+import Oryphis.HSVPixel;
+
 public class Pixel {
 	public int r;
 	public int g;
@@ -16,6 +18,10 @@ public class Pixel {
 		this.r = r;
 		this.g = g;
 		this.b = b;
+	}
+
+	public HSVPixel to_hsv() {
+		
 	}
 
 	/**

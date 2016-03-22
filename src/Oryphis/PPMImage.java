@@ -36,6 +36,13 @@ public class PPMImage {
 		pixels = new Pixel[width][height];
 	}
 
+	public PPMImage() {
+		width = 0;
+		height = 0;
+		format = "P3";
+		pixels = new Pixel[width][height];
+	}
+
 	/**
 	 * Construteur d'image bis
 	 *
