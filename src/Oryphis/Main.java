@@ -4,7 +4,7 @@ import Oryphis.PPMImage;
 import Oryphis.DrawImage;
 import Oryphis.Argument;
 
-import Oryphis.filtres.Laplacien;
+import Oryphis.filtres.PasseHaut;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -48,7 +48,7 @@ public class Main
 			}
 		}
 		img = new PPMImage(imgpath);
-		img = new Laplacien().appliquer_masque(img);
+		img = new PasseHaut().appliquer_masque(img);
 
 		img.save("assets/output.ppm");
 	}
