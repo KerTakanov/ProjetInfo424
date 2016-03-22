@@ -1,7 +1,6 @@
 package Oryphis.filtres;
 
 import Oryphis.PPMImage;
-import Oryphis.Pixel;
 import Oryphis.filtres.Masque;
 
 public class Laplacien extends Filtre {

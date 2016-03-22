@@ -1,13 +1,12 @@
 package Oryphis.filtres;
 
 import Oryphis.PPMImage;
-import Oryphis.DrawImage;
-import Oryphis.Pixel;
+import Oryphis.filtres.Masque;
 
-class Moyenne {
+public class Moyenne extends Filtre{
 	//TODO: Compléter les arguments
 	//doc utile : http://xmcvs.free.fr/astroart/Chapitre4.pdf
-	public Moyenne(PPMImage img) {
+	public Moyenne() {
 		this.masque = new Masque();
 		this.masque.masque = new int[][]
 							   
