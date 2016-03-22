@@ -9,6 +9,9 @@ public class Masque {
 	public int[][] masque;
 	public int diviseur;
 
+	public int w;
+	public int h;
+
 	/**
 	 * Permet de créer un nouveau masque de dimension (w, h)
 	 *
@@ -34,8 +37,8 @@ public class Masque {
 	public void appliquer(int x, int y, PPMImage imgori, PPMImage imgdest) {
 		int[] rgb = {0, 0, 0};
 
-		int offx = (masque.length-1)/2;
-		int offy = (masque[0].length-1)/2;
+		int offx = (masque.length)/2;
+		int offy = (masque[0].length)/2;
 
 		//On boucle sur les 3 composantes
 		for(int i = 0; i < 3; i++) {
@@ -46,7 +49,15 @@ public class Masque {
 							  * masque[xo - x + offx][yo - y + offy];
 				}
 			}
-			imgdest.setColor(i, x, y, rgb[i] / diviseur);
+			//pd
+			rgb[i] = rgb[i] / diviseur;
+
+			if(rgb[i] < 0)
+				rgb[i] = 0;
+			if(rgb[i] > imgdest.getMaxRGB())
+				imgdest.setMaxRGB(rgb[i]);
+
+			imgdest.setColor(i, x, y, rgb[i]);
 		}
 	}
 

@@ -11,8 +11,8 @@ public abstract class Filtre {
 	public PPMImage appliquer_masque(PPMImage img) {
 		PPMImage img2 = new PPMImage(img);
 
-		for(int x = 1; x < img.getWidth() - 1; x++) {
-			for(int y = 1; y < img.getHeight() - 1; y++) {
+		for(int y = 1; y < img.getWidth() - 1; y++) {
+			for(int x = 1; x < img.getHeight() - 1; x++) {
 				masque.appliquer(x, y, img, img2);
 			}
 		}

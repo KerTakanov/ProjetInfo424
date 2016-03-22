@@ -16,6 +16,7 @@ import java.awt.Color;
 public class PPMImage {
 	private int width;
 	private int height;
+	private int rgb_max;
 	private String format;
 	private Pixel[][] pixels;
 
@@ -47,7 +48,11 @@ public class PPMImage {
 		this.height = img.getHeight();
 		this.format = img.getFormat();
 		this.pixels = new Pixel[width][height];
-		this.pixels = img.pixelMap();
+		for(int i = 0; i < pixels.length; i++) {
+			for(int j = 0; j < pixels[0].length; j++) {
+				pixels[i][j] = new Pixel(img.pixelAt(i, j).r, img.pixelAt(i, j).g, img.pixelAt(i, j).b);
+			}
+		}
 	}
 
 	/**
@@ -84,6 +89,21 @@ public class PPMImage {
 
 		BufferedWriter out = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 		_savePixelMap(out);
+	}
+
+	/**
+	 * Met à jour la valeur max pour le rgb
+	 * 
+	 * @param      max   La valeur max
+	 *
+	 */
+
+	public void setMaxRGB(int max) {
+		this.rgb_max = max;
+	}
+
+	public int getMaxRGB() {
+		return this.rgb_max;
 	}
 
 	//Accession pixels
@@ -342,15 +362,22 @@ public class PPMImage {
 
 	private void _createPixelMap(BufferedReader in) throws java.io.IOException {
 		int[] coords = {0, 0};
+		boolean rgb_max_value = false;
 
 		ArrayList<Integer> rgb = new ArrayList<Integer>();
 		String line;
 		while((line = in.readLine()) != null) {
 			String[] result = line.split(" ");
 			for (int i = 0; i < result.length; i++) {
-				rgb.add(Integer.parseInt(result[i]));
-				if (rgb.size() == 3) {
-					coords = __savePixel(rgb, coords);
+				if(rgb_max_value) {
+					rgb.add(Integer.parseInt(result[i]));
+					if (rgb.size() == 3) {
+						coords = __savePixel(rgb, coords);
+					}
+				}
+				else {
+					this.rgb_max = Integer.parseInt(result[i]);
+					rgb_max_value = true;
 				}
 			}
 		}
@@ -382,7 +409,8 @@ public class PPMImage {
 
 	private void _savePixelMap(BufferedWriter out) throws java.io.IOException {
 		out.write(format + "\n");
-		out.write(Integer.toString(width) + " " + Integer.toString(height) + "\n");		
+		out.write(Integer.toString(width) + " " + Integer.toString(height) + "\n");
+		out.write(Integer.toString(this.rgb_max) + "\n");
 
 		for(int y = 0; y < width; y++) {
 			for(int x = 0; x < width; x++) {
