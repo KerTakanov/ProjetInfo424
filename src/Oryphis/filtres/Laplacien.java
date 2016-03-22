@@ -11,7 +11,7 @@ public class Laplacien extends Filtre {
 		this.masque = new Masque();
 		this.masque.masque = new int[][]
 							   
-							   {{8, -3, 2},{-2, -8, -2},{2, -3, 8}};
+							   {{1, 1, 1},{1, 1, 1},{1, 1, 1}};
 							   
 		this.masque.update_div();
 	}
