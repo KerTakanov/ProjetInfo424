@@ -13,6 +13,6 @@ public class Laplacien extends Filtre {
 							   
 							   {{0, -1, 0},{-1, 4, -1},{0, -1, 0}};
 							   
-		this.masque.update_div();
+		this.masque.diviseur = 1;
 	}
 }
