@@ -15,6 +15,8 @@ import Oryphis.filtres.Gradient;
 //col modifs
 import Oryphis.filtres.Saturation;
 import Oryphis.filtres.Teinte;
+import Oryphis.filtres.Luminosite;
+import Oryphis.filtres.InverserLuminosite;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -90,6 +92,13 @@ public class Main
             else if(actarg.getArg().equals("-hue")) {
                 img = new Teinte(Double.parseDouble(
                     actarg.getParameter(0))).appliquer(img);
+            }
+            else if(actarg.getArg().equals("-lum")) {
+                img = new Luminosite(Double.parseDouble(
+                    actarg.getParameter(0))).appliquer(img);
+            }
+            else if(actarg.getArg().equals("-ilum")) {
+                img = new InverserLuminosite().appliquer(img);
             }
         }
 

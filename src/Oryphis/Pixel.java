@@ -32,6 +32,10 @@ public class Pixel {
      * @return     { retourne la valeur du pixel en format HSV }
      */
     public HSVPixel to_hsv() {
+        return to_hsv(255.0);
+    }
+    
+    public HSVPixel to_hsv(double rgbmax) {
         HSVPixel res = new HSVPixel();
 
         double min = Math.min(r, Math.min(g, b));
@@ -40,6 +44,7 @@ public class Pixel {
         double delta = max - min;
 
         res.v = max;
+        res.v /= rgbmax;
 
         if(delta < 0.00001) {
             res.s = 0.0;

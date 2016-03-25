@@ -52,6 +52,12 @@ public class HSVPixel {
         h %= 360.0;
     }
 
+    public void addValue(double value) {
+        v += value;
+        if(v > 1.0) v = 1.0;
+        else if(v < 0.0) v = 0.0;
+    }
+
     /**
      * Permet de transformer des pixels HSV en format rgb
      *
