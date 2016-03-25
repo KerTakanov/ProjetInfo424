@@ -19,9 +19,8 @@ public class InverserLuminosite extends Filtre {
 
         for(int y = 0; y < img.getWidth(); y++) {
             for(int x = 0; x < img.getHeight(); x++) {
-                p = img.pixelAt(x, y).to_hsv(img.getMaxRGB());
-                System.out.println(p.v);
-                p.v = 1-p.v;
+                p = img.pixelAt(x, y).to_hsv();
+                p.v = img.getMaxRGB()-p.v;
                 rgbp = p.to_rgb();
 
                 img2.setPixel(x, y, rgbp);

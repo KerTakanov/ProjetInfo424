@@ -17,6 +17,7 @@ import Oryphis.filtres.Saturation;
 import Oryphis.filtres.Teinte;
 import Oryphis.filtres.Luminosite;
 import Oryphis.filtres.InverserLuminosite;
+import Oryphis.filtres.Negatif;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -99,6 +100,9 @@ public class Main
             }
             else if(actarg.getArg().equals("-ilum")) {
                 img = new InverserLuminosite().appliquer(img);
+            }
+            else if(actarg.getArg().equals("-neg")) {
+                img = new Negatif().appliquer(img);
             }
         }
 
