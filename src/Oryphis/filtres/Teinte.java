@@ -15,6 +15,13 @@ public class Teinte extends Filtre {
         this.valeur = valeur;
     }
 
+    /**
+     * applique le filtre à une image
+     *
+     * @param      img   { image à modifier }
+     *
+     * @return     { applique le filtre }
+     */
     public PPMImage appliquer(PPMImage img) {
         PPMImage img2 = new PPMImage(img);
         HSVPixel p;

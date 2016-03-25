@@ -95,7 +95,9 @@ public class Masque {
         masque[x] = vals;
         update_div();
     }
-
+	/**
+	 * permet de calculé le diviseur d'un filtre.
+	 */
     public void update_div() {
         diviseur = 0;
         for(int x = 0; x < masque.length; ++x) {

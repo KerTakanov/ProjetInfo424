@@ -6,8 +6,13 @@ import Oryphis.filtres.Masque;
 
 public abstract class Filtre {
 	protected Masque masque;
-	//TODO: Compléter les arguments
-	//doc utile : http://xmcvs.free.fr/astroart/Chapitre4.pdf
+	/**
+	 * permet d'appliquer le masque sur l'image d'origine.
+	 *
+	 * @param      img   { l'image d'origine }
+	 *
+	 * @return     { retourne l'image d'origine après modification par le masque }
+	 */
 	public abstract PPMImage appliquer(PPMImage img);
 
 	protected PPMImage appliquer_masque(PPMImage img) {
