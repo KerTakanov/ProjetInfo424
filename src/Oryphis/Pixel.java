@@ -26,6 +26,11 @@ public class Pixel {
         this.b = b;
     }
 
+    /**
+     * Permet de transformer les pixels rgb en format HSV
+     *
+     * @return     { retourne la valeur du pixel en format HSV }
+     */
     public HSVPixel to_hsv() {
         HSVPixel res = new HSVPixel();
 
@@ -84,6 +89,11 @@ public class Pixel {
         if(b > 255.0) b = 255.0;
     }
 
+    /**
+     * Permet de retourner les valeurs des pixels rgb
+     *
+     * @return     { retourne la valuer des pixels rgb }
+     */
     public String toString() {
         return "r: " + r + ", g: " + g + ", b: " + b;
     }

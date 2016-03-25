@@ -25,12 +25,22 @@ public class HSVPixel {
         this.v = v;
     }
 
+    /**
+     * Permet de multiplier la saturation a l'aide d'un facteur
+     *
+     * @param      factor  { facteur de type double qui permet d'augmenter la saturation }
+     */
     public void multiplySaturation(double factor) {
         s *= factor;
         if(s > 1.0) s = 1.0;
         else if(s < 0.0) s = 0.0;
     }
 
+    /**
+     * Permet d'augmenter la saturation en additionnant un nombre 
+     *
+     * @param      sat   { parameter_description }
+     */
     public void addSaturation(double sat) {
         s += sat;
         if(s > 1.0) s = 1.0;
@@ -42,6 +52,11 @@ public class HSVPixel {
         h %= 360.0;
     }
 
+    /**
+     * Permet de transformer des pixels HSV en format rgb
+     *
+     * @return     { les pixels HSV en RGB }
+     */
     public Pixel to_rgb() {
         Pixel res = new Pixel();
 
@@ -95,6 +110,11 @@ public class HSVPixel {
         return res;
     }
 
+    /**
+     * Permet de retourner les valeurs des pixels HSV
+     *
+     * @return     { retourne les valeurs HSV }
+     */
     public String toString() {
         return "h: " + h + ", s: " + s + ", v: " + v;
     }
