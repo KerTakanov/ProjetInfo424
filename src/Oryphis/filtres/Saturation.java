@@ -6,11 +6,12 @@ import Oryphis.filtres.Masque;
 import Oryphis.HSVPixel;
 import Oryphis.Pixel;
 
-public class Desaturation extends Filtre {
+//Multiplie la saturation d'une image par un facteur.
+public class Saturation extends Filtre {
     private double valeur;
-    //TODO: Compléter les arguments
+
     //doc utile : http://xmcvs.free.fr/astroart/Chapitre4.pdf
-    public Desaturation(double valeur) {
+    public Saturation(double valeur) {
         this.valeur = valeur;
     }
 
@@ -23,8 +24,8 @@ public class Desaturation extends Filtre {
             for(int x = 0; x < img.getHeight(); x++) {
                 p = img.pixelAt(x, y).to_hsv();
                 p.multiplySaturation(valeur);
-
                 rgbp = p.to_rgb();
+
                 img2.setPixel(x, y, rgbp);
 
                 if(rgbp.r > img2.getMaxRGB())

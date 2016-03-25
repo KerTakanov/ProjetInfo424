@@ -37,6 +37,11 @@ public class HSVPixel {
         else if(s < 0.0) s = 0.0;
     }
 
+    public void addHue(double hue) {
+        h += hue;
+        h %= 360.0;
+    }
+
     public Pixel to_rgb() {
         Pixel res = new Pixel();
 
