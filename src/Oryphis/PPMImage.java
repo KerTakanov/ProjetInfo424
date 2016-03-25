@@ -16,7 +16,7 @@ import java.awt.Color;
 public class PPMImage {
 	private int width;
 	private int height;
-	private int rgb_max;
+	private double rgb_max;
 	private String format;
 	private Pixel[][] pixels;
 
@@ -105,11 +105,11 @@ public class PPMImage {
 	 *
 	 */
 
-	public void setMaxRGB(int max) {
+	public void setMaxRGB(double max) {
 		this.rgb_max = max;
 	}
 
-	public int getMaxRGB() {
+	public double getMaxRGB() {
 		return this.rgb_max;
 	}
 
@@ -150,7 +150,7 @@ public class PPMImage {
 	 * 
 	 */
 
-	public int r(int x, int y) {
+	public double r(int x, int y) {
 		return pixels[x][y].r;
 	}
 
@@ -164,7 +164,7 @@ public class PPMImage {
 	 * 
 	 */
 
-	public int g(int x, int y) {
+	public double g(int x, int y) {
 		return pixels[x][y].g;
 	}
 
@@ -178,7 +178,7 @@ public class PPMImage {
 	 * 
 	 */
 
-	public int b(int x, int y) {
+	public double b(int x, int y) {
 		return pixels[x][y].b;
 	}
 
@@ -196,7 +196,7 @@ public class PPMImage {
 	 *
 	 */
 
-	public int getColor(int c, int x, int y) {
+	public double getColor(int c, int x, int y) {
 		return c == 0 ? pixels[x][y].r : c == 1 ? pixels[x][y].g : pixels[x][y].b;
 	}
 
@@ -255,7 +255,6 @@ public class PPMImage {
 	 * @param      _b     valeur du pixel bleu (blue)
 	 * 
 	 */
-
 	public void b(int x, int y, int _b) {
 		pixels[x][y].b = _b;
 	}
@@ -268,7 +267,6 @@ public class PPMImage {
 	 * @return     La largeur de l'image
 	 * 
 	 */
-
 	public int getWidth() {
 		return this.width;
 	}
@@ -290,7 +288,6 @@ public class PPMImage {
 	 * @return     Le format de l'image
 	 * 
 	 */
-
 	public String getFormat() {
 		return this.format;
 	}
@@ -303,9 +300,10 @@ public class PPMImage {
 	 *
 	 * @return     la valeur rouge (red), vert (green) et bleu (blue)
 	 */
-
 	public Color colorAt(int x, int y) {
-		return new Color(pixels[x][y].r, pixels[x][y].g, pixels[x][y].b);
+		return new Color((int)(pixels[x][y].r+0.5), 
+					     (int)(pixels[x][y].g+0.5), 
+					     (int)(pixels[x][y].b+0.5));
 	}
 
 	//Privés
@@ -322,7 +320,6 @@ public class PPMImage {
 	 * @throws     java  IOException
 	 * 
 	 */
-
 	private String _nextLine(BufferedReader in) throws java.io.IOException {
 		String line = in.readLine().trim();
 		while (line.charAt(0) == '#')
@@ -337,7 +334,6 @@ public class PPMImage {
 	 * @param      line    Une ligne d'un fichier ou est écrit le format de l'image 
 	 * 
 	 */
-
 	private void _getFormat(String line) {
 		this.format = line;
 	}
@@ -348,7 +344,6 @@ public class PPMImage {
 	 * @param      line  Une ligne d'un fichier ou est écrit les dimensions de l'image
 	 * 
 	 */
-
 	private void _getSize(String line) {
 		int pos = line.indexOf(" ");
 		String lvalue = line.substring(0, pos);
@@ -391,6 +386,7 @@ public class PPMImage {
 	}
 
 	private int[] __savePixel(ArrayList<Integer> rgb, int[] coords) {
+		//Créé un nouveau pixel, puis l'assigne à *cette* PPMImage
 		int x = coords[0];
 		int y = coords[1];
 
@@ -417,13 +413,13 @@ public class PPMImage {
 	private void _savePixelMap(BufferedWriter out) throws java.io.IOException {
 		out.write(format + "\n");
 		out.write(Integer.toString(width) + " " + Integer.toString(height) + "\n");
-		out.write(Integer.toString(this.rgb_max) + "\n");
+		out.write(Integer.toString((int)(this.rgb_max+0.5)) + "\n");
 
 		for(int y = 0; y < width; y++) {
 			for(int x = 0; x < width; x++) {
-				out.write(Integer.toString(pixels[x][y].r) + " "
-						+ Integer.toString(pixels[x][y].g) + " "
-						+ Integer.toString(pixels[x][y].b) + "\n");
+				out.write(Integer.toString((int)(pixels[x][y].r + 0.5)) + " "
+						+ Integer.toString((int)(pixels[x][y].g + 0.5)) + " "
+						+ Integer.toString((int)(pixels[x][y].b + 0.5)) + "\n");
 			}
 		}
 		out.close();

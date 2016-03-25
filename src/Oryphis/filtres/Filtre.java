@@ -8,7 +8,9 @@ public abstract class Filtre {
 	protected Masque masque;
 	//TODO: Compléter les arguments
 	//doc utile : http://xmcvs.free.fr/astroart/Chapitre4.pdf
-	public PPMImage appliquer_masque(PPMImage img) {
+	public abstract PPMImage appliquer(PPMImage img);
+
+	protected PPMImage appliquer_masque(PPMImage img) {
 		PPMImage img2 = new PPMImage(img);
 
 		for(int y = 1; y < img.getWidth() - 1; y++) {
