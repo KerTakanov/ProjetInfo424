@@ -212,7 +212,14 @@ public class PPMImage {
     public double getColor(int c, int x, int y) {
         return c == 0 ? pixels[x][y].r : c == 1 ? pixels[x][y].g : pixels[x][y].b;
     }
-
+/**
+ * Donne une valeur à la couleur choisi
+ * 
+ * @param c   choix de la couleur
+ * @param x   coordonnée x du pixel
+ * @param y   coordonnée y du pixel
+ * @param val valeur de la couleur sélectionnée
+ */
     public void setColor(int c, int x, int y, double val) {
         if (c == 0) pixels[x][y].r = val;
         else if (c == 1) pixels[x][y].g = val;

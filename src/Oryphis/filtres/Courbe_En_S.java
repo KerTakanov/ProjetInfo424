@@ -3,8 +3,6 @@ package Oryphis.filtres;
 import Oryphis.filtres.Masque;
 import Oryphis.PPMImage;
 
-import java.lang.Math;
-
 public class Courbe_En_S extends Filtre{
 	private double d;
 
@@ -19,23 +17,21 @@ public class Courbe_En_S extends Filtre{
         moy[0] = 0;
         moy[1] = 0;
         moy[2] = 0;
-		int tmp = 0;
-		double res;
+		double res = 0.0;
 
-		for(int y = 1; y < img.getWidth() - 1; y++) {
-			for(int x = 1; x < img.getHeight() - 1; x++) {
+		for(int y = 0; y < img.getWidth(); y++) {
+			for(int x = 0; x < img.getHeight(); x++) {
 				moy[0] += img.r(x, y);
 				moy[1] += img.g(x, y);
 				moy[2] += img.b(x, y);
-				tmp +=1;
 			}
 		}
 
-		for(int i = 0; i < 3; i++) moy[i] = moy[i] / tmp;
+		for(int i = 0; i < 3; i++) moy[i] = moy[i] / (img.getWidth() * img.getHeight());
 
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < img.getWidth(); j++) {
-				for(int k = 0; k < img.getHeight(); k++) {
+		for(int j = 0; j < img.getWidth(); j++) {
+			for(int k = 0; k < img.getHeight(); k++) {
+				for(int i = 0; i < 3; i++) {
 					if (img.getColor(i, j, k) <= moy[i] ) {
 			           res = img.getColor(i, j, k) / moy[i];
 			           res = Math.pow( res, d );
@@ -44,14 +40,14 @@ public class Courbe_En_S extends Filtre{
 
 			        else {
 			           res = 1.0 - ((img.getColor(i, j, k) - moy[i]) / (1.0-moy[i]) );
-			           res = Math.pow( res, d );
+			           res = Math.pow(res, d);
 			           img2.setColor(i, j, k, (1.0-res)*(1.0-moy[i]) + moy[i]);
 			        }
 				}
 			}
 		}
 
-		img2.calcMaxRGB();
+		img2.calcMaxRGB(); 
 
 		return img2;
     }
