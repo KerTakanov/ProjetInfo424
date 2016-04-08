@@ -32,8 +32,14 @@ public class PPMImage {
     public PPMImage(int w, int h, String format) {
         width = w;
         height = h;
-        format = format;
+        this.format = format;
         pixels = new Pixel[width][height];
+
+        for(int x = 0; x < w; x++) {
+            for(int y = 0; y < h; y++) {
+                pixels[x][y] = new Pixel();
+            }
+        }
     }
 
     public PPMImage() {
@@ -212,14 +218,7 @@ public class PPMImage {
     public double getColor(int c, int x, int y) {
         return c == 0 ? pixels[x][y].r : c == 1 ? pixels[x][y].g : pixels[x][y].b;
     }
-/**
- * Donne une valeur à la couleur choisi
- * 
- * @param c   choix de la couleur
- * @param x   coordonnée x du pixel
- * @param y   coordonnée y du pixel
- * @param val valeur de la couleur sélectionnée
- */
+
     public void setColor(int c, int x, int y, double val) {
         if (c == 0) pixels[x][y].r = val;
         else if (c == 1) pixels[x][y].g = val;

@@ -12,9 +12,12 @@ import Oryphis.filtres.Nettete;
 import Oryphis.filtres.Moyenne;
 import Oryphis.filtres.Gradient;
 
+import Oryphis.filtres.BicubicResize;
+
 //col modifs
 import Oryphis.filtres.Saturation;
 import Oryphis.filtres.Teinte;
+import Oryphis.filtres.Luminosite;
 import Oryphis.filtres.InverserLuminosite;
 import Oryphis.filtres.Negatif;
 import Oryphis.filtres.Courbe_En_S;
@@ -29,13 +32,155 @@ import Oryphis.HSVPixel;
 
 public class Main
 {
+    public static help(String arg) {
+        int val = -1;
+
+/* à améliorer en utilisant par ex. une map */
+
+        if(arg.equals("lp"))
+            val = 0;
+        if(arg.equals("es"))
+            val = 1;
+        if(arg.equals("nt"))
+            val = 2;
+        if(arg.equals("ph"))
+            val = 3;
+        if(arg.equals("pb"))
+            val = 4;
+        if(arg.equals("moy"))
+            val = 5;
+        if(arg.equals("grad"))
+            val = 6;
+        if(arg.equals("sat"))
+            val = 7;
+        if(arg.equals("hue"))
+            val = 8;
+        if(arg.equals("lum"))
+            val = 9;
+        if(arg.equals("ilum"))
+            val = 10;
+        if(arg.equals("neg"))
+            val = 12;
+        if(arg.equals("ces"))
+            val = 12;
+        if(arg.equals("br"))
+            val = 13;
+
+        String help_header = "//////////////////////////////////////////////////
+/// Oryphis - Logiciel de manipulation d'image ///
+///--------------------------------------------///
+/// Aide                                       ///
+//////////////////////////////////////////////////
+Utilisation:
+<chemin image> -arg <val>
+-------------------------
+
+
+"
+
+        String help = help_header + "
+Liste des commandes :
+-lp
+-es
+-nt
+-ph
+-pb
+-moy
+-grad <direction[0=haut|1=droite|2=bas|3=gauche]>
+-sat <flottant>
+-hue <flottant[0 -> 360]>
+-lum (n'existe plus)
+-ilum (n'existe plus)
+-neg
+-ces <flottant[0->8]>
+-br (non fonctionnel)
+
+Tapez -help <commande> pour obtenir l'aide concernant une commande en particulier"
+    
+        String[] help_cmd = new String {
+help_header + "
+-lp
+
+Applique un filtre Laplacien à l'image
+",
+help_header + "
+-es
+
+Applique un filtre Estampage à l'image
+",
+help_header + "
+-nt
+
+Applique un filtre Nettete à l'image
+",
+help_header + "
+-ph
+
+Applique un filtre Passe Haut à l'image
+",
+help_header + "
+-pb
+
+Applique un filtre Passe Bas à l'image
+",
+help_header + "
+-moy
+
+Applique un filtre Moyenne à l'image
+",
+help_header + "
+-grad <direction[0=haut|1=droite|2=bas|3=gauche]>
+
+Applique un filtre Gradient à l'image dans la direction choisie
+",
+help_header + "
+-sat <flottant>
+
+Mulitplie la saturation de l'image par une valeur
+",
+help_header + "
+-hue <flottant[0 -> 360]>
+
+Déplace la teinte de l'image
+",
+help_header + "
+-lum
+
+N'existe plus/pas
+",
+help_header + "
+-ilum
+
+N'existe plus/pas
+",
+help_header + "
+-neg
+
+Met l'image en négatif
+",
+help_header + "
+-br
+
+N'est pas fonctionnel
+"
+        }
+
+    System.out.print(help);
+    if(val >= 0)
+        System.out.print(help_cmd[val]);
+    }
+
+    public static help() {
+        help("");
+    }
+
     public static void main(String[] args)
     throws java.io.FileNotFoundException, java.io.IOException
     {
         ArrayList<Argument> argst = new ArrayList<Argument>();
         Argument actarg = new Argument();
-        String actargs, imgpath = args[0];
-        System.out.println(imgpath);
+        String actargs;
+        String imgpath = "";
         PPMImage img;
 
         for(int i = 1; i < args.length; i++) {
@@ -52,52 +197,74 @@ public class Main
 
         System.out.println("Il y a " + argst.size() + " arguments :");
 
-        img = new PPMImage(imgpath);
-        ListIterator<Argument> it = argst.listIterator();
-        while (it.hasNext()) {
-            actarg = it.next();
-            if(actarg.getArg().equals("-lp")) {
-                img = new Laplacien().appliquer(img);
-            }
-            else if(actarg.getArg().equals("-es")) {
-                img = new Estampage().appliquer(img);
-            }
-            else if(actarg.getArg().equals("-nt")) {
-                img = new Nettete().appliquer(img);
-            }
-            else if(actarg.getArg().equals("-ph")) {
-                img = new PasseHaut().appliquer(img);
-            }
-            else if(actarg.getArg().equals("-pb")) {
-                img = new PasseBas().appliquer(img);
-            }
-            else if(actarg.getArg().equals("-moy")) {
-                img = new Moyenne().appliquer(img);
-            }
-            else if(actarg.getArg().equals("-grad")) {
-                img = new Gradient(Integer.parseInt(
-                    actarg.getParameter(0))).appliquer(img);
-            }
-            else if(actarg.getArg().equals("-sat")) {
-                img = new Saturation(Double.parseDouble(
-                    actarg.getParameter(0))).appliquer(img);
-            }
-            else if(actarg.getArg().equals("-hue")) {
-                img = new Teinte(Double.parseDouble(
-                    actarg.getParameter(0))).appliquer(img);
-            }
-            else if(actarg.getArg().equals("-ilum")) {
-                img = new InverserLuminosite().appliquer(img);
-            }
-            else if(actarg.getArg().equals("-neg")) {
-                img = new Negatif().appliquer(img);
-            }
-            else if(actarg.getArg().equals("-ces")) {
-                img = new Courbe_En_S(Double.parseDouble(
-                    actarg.getParameter(0))).appliquer(img);
-            }
-        }
+        if(args.length > 0)
+            imgpath = args[0];
+        else
+            help();
 
-        img.save("assets/output.ppm");
+        if(!(imgpath.equals(""))) {
+            img = new PPMImage(imgpath);
+            ListIterator<Argument> it = argst.listIterator();
+            while (it.hasNext()) {
+                actarg = it.next();
+                if(actarg.getArg().equals("-lp")) {
+                    img = new Laplacien().appliquer(img);
+                }
+                else if(actarg.getArg().equals("-es")) {
+                    img = new Estampage().appliquer(img);
+                }
+                else if(actarg.getArg().equals("-nt")) {
+                    img = new Nettete().appliquer(img);
+                }
+                else if(actarg.getArg().equals("-ph")) {
+                    img = new PasseHaut().appliquer(img);
+                }
+                else if(actarg.getArg().equals("-pb")) {
+                    img = new PasseBas().appliquer(img);
+                }
+                else if(actarg.getArg().equals("-moy")) {
+                    img = new Moyenne().appliquer(img);
+                }
+                else if(actarg.getArg().equals("-grad")) {
+                    img = new Gradient(Integer.parseInt(
+                        actarg.getParameter(0))).appliquer(img);
+                }
+                else if(actarg.getArg().equals("-sat")) {
+                    img = new Saturation(Double.parseDouble(
+                        actarg.getParameter(0))).appliquer(img);
+                }
+                else if(actarg.getArg().equals("-hue")) {
+                    img = new Teinte(Double.parseDouble(
+                        actarg.getParameter(0))).appliquer(img);
+                }
+                else if(actarg.getArg().equals("-lum")) {
+                    img = new Luminosite(Double.parseDouble(
+                        actarg.getParameter(0))).appliquer(img);
+                }
+                else if(actarg.getArg().equals("-ilum")) {
+                    img = new InverserLuminosite().appliquer(img);
+                }
+                else if(actarg.getArg().equals("-neg")) {
+                    img = new Negatif().appliquer(img);
+                }
+                else if(actarg.getArg().equals("-ces")) {
+                    img = new Courbe_En_S(Double.parseDouble(
+                        actarg.getParameter(0))).appliquer(img);
+                }
+                else if(actarg.getArg().equals("-br")) {
+                    System.out.println("N'est pas fontionnel !");
+                    img = new BicubicResize(Double.parseDouble(
+                        actarg.getParameter(0)),
+                    Double.parseDouble(
+                        actarg.getParameter(1))).appliquer(img);
+                }
+
+
+                else if(actarg.getArg().equals("-h") || actarg.getArg().equals("-help"))
+                    help();
+            }
+
+            img.save("assets/output.ppm");
+        }
     }
 }
