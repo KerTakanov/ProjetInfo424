@@ -18,6 +18,7 @@ import Oryphis.filtres.Teinte;
 import Oryphis.filtres.Luminosite;
 import Oryphis.filtres.InverserLuminosite;
 import Oryphis.filtres.Negatif;
+import Oryphis.filtres.Courbe_En_S;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -27,10 +28,6 @@ import java.io.File;
 import Oryphis.Pixel;
 import Oryphis.HSVPixel;
 
-/*
- * A finir : RGB->HSV pour inverser couleurs (filtre gradient par ex.)
- */
-
 public class Main
 {
     public static void main(String[] args)
@@ -38,10 +35,11 @@ public class Main
     {
         ArrayList<Argument> argst = new ArrayList<Argument>();
         Argument actarg = new Argument();
-        String actargs, imgpath = "";
+        String actargs, imgpath = args[0];
+        System.out.println(imgpath);
         PPMImage img;
 
-        for(int i = 0; i < args.length; i++) {
+        for(int i = 1; i < args.length; i++) {
             actargs = args[i];
 
             if(actargs.charAt(0) == '-') {
@@ -55,16 +53,11 @@ public class Main
 
         System.out.println("Il y a " + argst.size() + " arguments :");
 
-        img = new PPMImage();
+        img = new PPMImage(imgpath);
         ListIterator<Argument> it = argst.listIterator();
         while (it.hasNext()) {
             actarg = it.next();
-            if(actarg.getArg().equals("-p")) {
-                imgpath = actarg.getParameter(0);
-                img = new PPMImage(imgpath);
-            }
-
-            else if(actarg.getArg().equals("-lp")) {
+            if(actarg.getArg().equals("-lp")) {
                 img = new Laplacien().appliquer(img);
             }
             else if(actarg.getArg().equals("-es")) {
@@ -103,6 +96,10 @@ public class Main
             }
             else if(actarg.getArg().equals("-neg")) {
                 img = new Negatif().appliquer(img);
+            }
+            else if(actarg.getArg().equals("-ces")) {
+                img = new Courbe_En_S(Double.parseDouble(
+                    actarg.getParameter(0))).appliquer(img);
             }
         }
 
