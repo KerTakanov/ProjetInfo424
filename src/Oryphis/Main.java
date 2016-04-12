@@ -32,11 +32,10 @@ import Oryphis.HSVPixel;
 
 public class Main
 {
-    public static help(String arg) {
+    public static void help(String arg) {
         int val = -1;
 
 /* à améliorer en utilisant par ex. une map */
-
         if(arg.equals("lp"))
             val = 0;
         if(arg.equals("es"))
@@ -66,111 +65,81 @@ public class Main
         if(arg.equals("br"))
             val = 13;
 
-        String help_header = "//////////////////////////////////////////////////
-/// Oryphis - Logiciel de manipulation d'image ///
-///--------------------------------------------///
-/// Aide                                       ///
-//////////////////////////////////////////////////
-Utilisation:
-<chemin image> -arg <val>
--------------------------
+/* Formation des strings d'aide */
+        String help_header = "//////////////////////////////////////////////////\n"+
+"/// Oryphis - Logiciel de manipulation d'image ///\n"+
+"///--------------------------------------------///\n"+
+"/// Aide                                       ///\n"+
+"//////////////////////////////////////////////////\n"+
+"Utilisation:\n"+
+"<chemin image> -arg <val>\n"+
+"-------------------------"+
+"\n\n";
 
+        String help = help_header + "Liste des commandes :\n"+
+"-lp\n"+
+"-es\n"+
+"-nt\n"+
+"-ph\n"+
+"-pb\n"+
+"-moy\n"+
+"-grad <direction[0=haut|1=droite|2=bas|3=gauche]>\n"+
+"-sat <flottant>\n"+
+"-hue <flottant[0 -> 360]>\n"+
+"-lum (n'existe plus)\n"+
+"-ilum (n'existe plus)\n"+
+"-neg\n"+
+"-ces <flottant[0->8]>\n"+
+"-br (non fonctionnel)\n\n"+
 
-"
-
-        String help = help_header + "
-Liste des commandes :
--lp
--es
--nt
--ph
--pb
--moy
--grad <direction[0=haut|1=droite|2=bas|3=gauche]>
--sat <flottant>
--hue <flottant[0 -> 360]>
--lum (n'existe plus)
--ilum (n'existe plus)
--neg
--ces <flottant[0->8]>
--br (non fonctionnel)
-
-Tapez -help <commande> pour obtenir l'aide concernant une commande en particulier"
+"Tapez -help <commande> pour obtenir l'aide concernant une commande en particulier\n\n";
     
-        String[] help_cmd = new String {
-help_header + "
--lp
+        String[] help_cmd = new String[] {
+help_header + "-lp\n"+
+"Applique un filtre Laplacien à l'image",
 
-Applique un filtre Laplacien à l'image
-",
-help_header + "
--es
+help_header + "-es\n"+
+"Applique un filtre Estampage à l'image",
 
-Applique un filtre Estampage à l'image
-",
-help_header + "
--nt
+help_header + "-nt\n"+
+"Applique un filtre Nettete à l'image",
 
-Applique un filtre Nettete à l'image
-",
-help_header + "
--ph
+help_header + "-ph\n"+
+"Applique un filtre Passe Haut à l'image",
 
-Applique un filtre Passe Haut à l'image
-",
-help_header + "
--pb
+help_header + "-pb\n"+
+"Applique un filtre Passe Bas à l'image",
 
-Applique un filtre Passe Bas à l'image
-",
-help_header + "
--moy
+help_header + "-moy\n"+
+"Applique un filtre Moyenne à l'image",
 
-Applique un filtre Moyenne à l'image
-",
-help_header + "
--grad <direction[0=haut|1=droite|2=bas|3=gauche]>
+help_header + "-grad <direction[0=haut|1=droite|2=bas|3=gauche]>\n"+
+"Applique un filtre Gradient à l'image dans la direction choisie",
 
-Applique un filtre Gradient à l'image dans la direction choisie
-",
-help_header + "
--sat <flottant>
+help_header + "-sat <flottant>\n"+
+"Mulitplie la saturation de l'image par une valeur",
 
-Mulitplie la saturation de l'image par une valeur
-",
-help_header + "
--hue <flottant[0 -> 360]>
+help_header + "-hue <flottant[0 -> 360]>\n"+
+"Déplace la teinte de l'image",
 
-Déplace la teinte de l'image
-",
-help_header + "
--lum
+help_header + "-lum\n"+
+"N'existe plus/pas",
 
-N'existe plus/pas
-",
-help_header + "
--ilum
+help_header + "-ilum\n"+
+"N'existe plus/pas",
 
-N'existe plus/pas
-",
-help_header + "
--neg
+help_header + "-neg\n"+
+"Met l'image en négatif",
 
-Met l'image en négatif
-",
-help_header + "
--br
-
-N'est pas fonctionnel
-"
-        }
+help_header + "-br\n"+
+"N'est pas fonctionnel" };
 
     System.out.print(help);
     if(val >= 0)
         System.out.print(help_cmd[val]);
     }
 
-    public static help() {
+    public static void help() {
         help("");
     }
 
@@ -258,10 +227,9 @@ N'est pas fonctionnel
                     Double.parseDouble(
                         actarg.getParameter(1))).appliquer(img);
                 }
-
-
-                else if(actarg.getArg().equals("-h") || actarg.getArg().equals("-help"))
+                else if(actarg.getArg().equals("-h") || actarg.getArg().equals("-help")) {
                     help();
+                }
             }
 
             img.save("assets/output.ppm");

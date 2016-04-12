@@ -22,7 +22,9 @@ public class Masque {
         this.masque = new int[w][h];
     }
 
-    public Masque() {};
+    public Masque() {
+        this(0, 0);
+    };
 
     /**
      * Applique le masque sur un pixel.
