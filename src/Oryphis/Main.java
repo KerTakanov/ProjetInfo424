@@ -166,7 +166,7 @@ help_header + "-br\n"+
 
         System.out.println("Il y a " + argst.size() + " arguments :");
 
-        if(args.length > 0)
+        if(args.length > 0 && !(args[0].charAt(0) == '-'))
             imgpath = args[0];
         else
             help();
