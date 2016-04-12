@@ -81,6 +81,7 @@ public class PPMImage {
         
         _getFormat(_nextLine(in));
         _getSize(_nextLine(in));
+        // get RGB max
         this.pixels = new Pixel[width][height];
         _createPixelMap(in);
     }
@@ -216,10 +217,16 @@ public class PPMImage {
      */
 
     public double getColor(int c, int x, int y) {
-        return c == 0 ? pixels[x][y].r : c == 1 ? pixels[x][y].g : pixels[x][y].b;
+        if (c == 0) return pixels[x][y].r;
+        else if (c == 1) return pixels[x][y].g;
+        return pixels[x][y].b;
+
+        //return c == 0 ? pixels[x][y].r : c == 1 ? pixels[x][y].g : pixels[x][y].b;
     }
 
     public void setColor(int c, int x, int y, double val) {
+        if (val < 0 ) val = 0;
+        if (val > rgb_max) val = rgb_max;
         if (c == 0) pixels[x][y].r = val;
         else if (c == 1) pixels[x][y].g = val;
         else if (c == 2) pixels[x][y].b = val;
