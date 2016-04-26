@@ -53,7 +53,7 @@ public class Masque {
                               * masque[xo - x + offx][yo - y + offy];
                 }
             }
-            //pd
+
             rgb[i] = rgb[i] / diviseur;
 
             if(rgb[i] < 0)

@@ -12,6 +12,7 @@ public class MelangeImage extends Transformation {
 
 	public PPMImage appliquer(PPMImage img) {
 		PPMImage img2 = new PPMImage(img.getWidth(), img.getHeight(), "P3");
+		img2.setMaxRGB(img.getMaxRGB());
 		PPMImage tmp = new PPMImage(trans);
 		if(img.getWidth() != trans.getWidth() ||
 		   img.getHeight() != trans.getHeight()) {
@@ -32,8 +33,6 @@ public class MelangeImage extends Transformation {
             	}
             }
         }
-
-        img2.calcMaxRGB();
 
         return img2;
 	}

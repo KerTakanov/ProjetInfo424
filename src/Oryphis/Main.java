@@ -107,14 +107,15 @@ public class Main
 "-grad <direction[0=haut|1=droite|2=bas|3=gauche]>\n"+
 "-sat <flottant>\n"+
 "-hue <flottant[0 -> 360]>\n"+
-"-lum (n'existe plus)\n"+
-"-ival (n'existe plus)\n"+
+"-lum <flottant>\n"+
+"-ival\n"+
 "-neg\n"+
 "-ces <flottant[0->8]>\n"+
-"-br (non fonctionnel)\n\n"+
+"-br (non fonctionnel)\n"+
 "-sel <entier[0->255]>\n" +
 "-red <flottant[0.5 -> 10 (conseillé)]><flottant[0.5 -> 10]>\n" +
-
+"-mel <chemin>\n" +
+"-melhue <chemin>\n" +
 "Tapez -help <commande> pour obtenir l'aide concernant une commande en particulier\n\n";
     
         String[] help_cmd = new String[] {
@@ -157,6 +158,9 @@ help_header + "-ival\n"+
 help_header + "-neg\n"+
 "Met l'image en négatif",
 
+help_header + "-ces <flottant[0->10]>\n"+
+"Applique un contraste avec une courbe en S",
+
 help_header + "-br\n"+
 "N'est pas fonctionnel",
 
@@ -170,9 +174,10 @@ help_header + "-mel <chemin>\nMélange deux images selon leur pixels RGB.",
 help_header + "-melhue <chemin>\nMélange deux images selon leur teinte.",
 help_header + "-rot <entier[0->360]\nApplique une rotation à l'image. [!] Peut faire sortir des pixels du cadre." };
 
-    System.out.print(help);
     if(val >= 0)
         System.out.print(help_cmd[val] + "\n");
+    else
+        System.out.print(help);
     }
 
     public static void help() {
@@ -276,7 +281,10 @@ help_header + "-rot <entier[0->360]\nApplique une rotation à l'image. [!] Peut 
                     actarg.getParameter(0))).appliquer(img);
             }
             else if(actarg.getArg().equals("-h") || actarg.getArg().equals("-help")) {
-                help(actarg.getParameter(0));
+                if (actarg.getParameters().size() == 0)
+                    help();
+                else
+                    help(actarg.getParameter(0));
             }
             else if(actarg.getArg().equals("-red")) {
                 img = new RedimVoisin(Double.parseDouble(

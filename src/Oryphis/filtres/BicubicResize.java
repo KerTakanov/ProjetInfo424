@@ -27,6 +27,7 @@ public class BicubicResize extends Filtre {
 	public PPMImage appliquer(PPMImage img) {
 		PPMImage img2 = new PPMImage((int)(img.getWidth()*wcoeff), 
 			(int)(img.getHeight()*hcoeff), "P3");
+		img2.setMaxRGB(img.getMaxRGB());
 
 		int imgx = 0;
 		int imgy = 0;
@@ -44,8 +45,6 @@ public class BicubicResize extends Filtre {
 			imgx++;
 		}
 /* A FAIRE */
-
-		img2.calcMaxRGB();
 		
 		return img2;
 	}
