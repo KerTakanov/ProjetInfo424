@@ -81,7 +81,6 @@ public class PPMImage {
         
         _getFormat(_nextLine(in));
         _getSize(_nextLine(in));
-        // get RGB max
         this.pixels = new Pixel[width][height];
         _createPixelMap(in);
     }
@@ -217,16 +216,10 @@ public class PPMImage {
      */
 
     public double getColor(int c, int x, int y) {
-        if (c == 0) return pixels[x][y].r;
-        else if (c == 1) return pixels[x][y].g;
-        return pixels[x][y].b;
-
-        //return c == 0 ? pixels[x][y].r : c == 1 ? pixels[x][y].g : pixels[x][y].b;
+        return c == 0 ? pixels[x][y].r : c == 1 ? pixels[x][y].g : pixels[x][y].b;
     }
 
     public void setColor(int c, int x, int y, double val) {
-        if (val < 0 ) val = 0;
-        if (val > rgb_max) val = rgb_max;
         if (c == 0) pixels[x][y].r = val;
         else if (c == 1) pixels[x][y].g = val;
         else if (c == 2) pixels[x][y].b = val;
@@ -437,11 +430,15 @@ public class PPMImage {
      */
 
     private void _savePixelMap(BufferedWriter out) throws java.io.IOException {
+        int _rgbmax = (int)(this.rgb_max+0.5);
+        if(_rgbmax == 0)
+            _rgbmax = 255;
+
         out.write(format + "\n");
         out.write(Integer.toString(width) + " " + Integer.toString(height) + "\n");
-        out.write(Integer.toString((int)(this.rgb_max+0.5)) + "\n");
+        out.write(Integer.toString(_rgbmax) + "\n");
 
-        for(int y = 0; y < width; y++) {
+        for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
                 out.write(Integer.toString((int)(pixels[x][y].r + 0.5)) + " "
                         + Integer.toString((int)(pixels[x][y].g + 0.5)) + " "
