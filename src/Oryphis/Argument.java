@@ -72,17 +72,6 @@ public class Argument
 	}
 
 	/**
-	 * Retourne le paramètre à l'index index, converti en entier.
-	 *
-	 * @param      index  l'index du paramètre recherché
-	 *
-	 * @return     le paramètre, converti en entier, à l'index index
-	 */
-	public int getIntParameter(int index) {
-		return Integer.parseInt(this.parameters.get(index));
-	}
-
-	/**
 	 * Change le paramètre à l'index index.
 	 *
 	 * @param      index      l'index du paramètre à modifier

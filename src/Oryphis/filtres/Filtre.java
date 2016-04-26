@@ -6,15 +6,22 @@ import Oryphis.filtres.Masque;
 
 public abstract class Filtre {
 	protected Masque masque;
+
 	/**
-	 * permet d'appliquer le masque sur l'image d'origine.
-	 *
-	 * @param      img   { l'image d'origine }
-	 *
-	 * @return     { retourne l'image d'origine après modification par le masque }
+	 * Applique le Filtre à l'image
+	 * 
+	 * @param img L'image à qui on applique le filtre
+	 * @return L'image à qui on a appliqué le filtre
 	 */
 	public abstract PPMImage appliquer(PPMImage img);
 
+	/**
+	 * Applique un masque à une image
+	 *
+	 * @param      img   L'image à qui on applique le masque
+	 *
+	 * @return     L'image à qui on a appliqué le masque
+	 */
 	protected PPMImage appliquer_masque(PPMImage img) {
 		PPMImage img2 = new PPMImage(img);
 

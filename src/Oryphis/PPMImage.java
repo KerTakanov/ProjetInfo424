@@ -21,14 +21,25 @@ public class PPMImage {
     private Pixel[][] pixels;
 
     /**
-     * Constrtucteur d'image PPM
+     * Constructeur par défaut, créé une image vide.
+     * 
+     * @return
+     */
+    public PPMImage() {
+        width = 0;
+        height = 0;
+        format = "P3";
+        pixels = new Pixel[width][height];
+    }
+
+    /**
+     * Constructeur d'image PPM
      *
      * @param      w        largeur de l'image
      * @param      h        hauteur de l'image
      * @param      format   format de l'image
      * 
      */
-
     public PPMImage(int w, int h, String format) {
         width = w;
         height = h;
@@ -42,20 +53,12 @@ public class PPMImage {
         }
     }
 
-    public PPMImage() {
-        width = 0;
-        height = 0;
-        format = "P3";
-        pixels = new Pixel[width][height];
-    }
-
     /**
      * Construteur d'image bis
      *
      * @param      img    prend une image au format ppm
      * 
      */
-    
     public PPMImage(PPMImage img) {
         this.width = img.getWidth();
         this.height = img.getHeight();
@@ -66,6 +69,7 @@ public class PPMImage {
                 pixels[i][j] = new Pixel(img.pixelAt(i, j).r, img.pixelAt(i, j).g, img.pixelAt(i, j).b);
             }
         }
+        this.rgb_max = img.getMaxRGB();
     }
 
     /**
@@ -74,7 +78,6 @@ public class PPMImage {
      * @param      path  addresse où se trouve l'image
      * 
      */
-
     public PPMImage(String path) 
     throws java.io.FileNotFoundException, java.io.IOException {
         BufferedReader in = new BufferedReader(new FileReader(path));
@@ -93,7 +96,6 @@ public class PPMImage {
      * @throws     java   IOException
      * 
      */
-
     public void save(String path)
     throws java.io.FileNotFoundException, java.io.IOException {
         File file = new File(path);
@@ -102,23 +104,32 @@ public class PPMImage {
 
         BufferedWriter out = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
         _savePixelMap(out);
+
+        System.out.println("Image sauvegardée (" + path + ")");
     }
 
     /**
      * Met à jour la valeur max pour le rgb
      * 
-     * @param      max   La valeur max
+     * @param      max   La valeur rgb max
      *
      */
-
     public void setMaxRGB(double max) {
         this.rgb_max = max;
     }
 
+    /**
+     * 
+     * @return La valeur rgb max
+     */
     public double getMaxRGB() {
         return this.rgb_max;
     }
 
+    /**
+     * Calcule le RGB max
+     */
+    @Deprecated
     public void calcMaxRGB() {
         for(int x = 0; x < getWidth(); x++) {
             for(int y = 0; y < getHeight(); y++) {
@@ -220,9 +231,9 @@ public class PPMImage {
     }
 
     public void setColor(int c, int x, int y, double val) {
-        if (c == 0) pixels[x][y].r = val;
-        else if (c == 1) pixels[x][y].g = val;
-        else if (c == 2) pixels[x][y].b = val;
+        if (c == 0) r(x, y, val);
+        else if (c == 1) g(x, y, val);
+        else if (c == 2) b(x, y, val);
     }
 
     //Manipulation pixels
@@ -237,7 +248,21 @@ public class PPMImage {
      */
 
     public void setPixel(int x, int y, Pixel p) {
-        pixels[x][y] = p;
+        r(x, y, p.r);
+        g(x, y, p.g);
+        b(x, y, p.b);
+    }
+
+    /**
+     * Permet de contraindre la valeur de val entre 0 et rgb_max
+     * 
+     * @param val La valeur a tester
+     * @return La valeur entre 0 et rgb_max
+     */
+    private double __bound(double val) {
+        if (val < 0) return 0;
+        if (val > rgb_max) return rgb_max;
+        return val;
     }
 
     /**
@@ -250,7 +275,7 @@ public class PPMImage {
      */
 
     public void r(int x, int y, double _r) {
-        pixels[x][y].r = _r;
+        pixels[x][y].r = __bound(_r);
     }
 
     /**
@@ -263,7 +288,7 @@ public class PPMImage {
      */
 
     public void g(int x, int y, double _g) {
-        pixels[x][y].g = _g;
+        pixels[x][y].g = __bound(_g);
     }
 
     /**
@@ -275,7 +300,7 @@ public class PPMImage {
      * 
      */
     public void b(int x, int y, double _b) {
-        pixels[x][y].b = _b;
+        pixels[x][y].b = __bound(_b);
     }
 
     //Accesseurs
@@ -404,6 +429,13 @@ public class PPMImage {
         }
     }
 
+    /**
+     * Sauvegarde un pixel dans la map de pixels.
+     * 
+     * @param rgb Liste des 3 composantes du pixel
+     * @param coords Tableau des 2 coordonnées
+     * @return Retourne les coordonnées du *prochain* pixel
+     */
     private int[] __savePixel(ArrayList<Integer> rgb, int[] coords) {
         //Créé un nouveau pixel, puis l'assigne à *cette* PPMImage
         int x = coords[0];

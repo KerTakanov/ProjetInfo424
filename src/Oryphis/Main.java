@@ -26,7 +26,7 @@ import Oryphis.transfos.Rotation;
 import Oryphis.filtres.Saturation;
 import Oryphis.filtres.Teinte;
 import Oryphis.filtres.Luminosite;
-import Oryphis.filtres.InverserLuminosite;
+import Oryphis.filtres.InverserValeur;
 import Oryphis.filtres.Negatif;
 import Oryphis.filtres.Courbe_En_S;
 
@@ -46,38 +46,44 @@ public class Main
 /* à améliorer en utilisant par ex. une map */
         if(arg.equals("o"))
             val = 0;
-        if(arg.equals("lp"))
+        else if(arg.equals("lp"))
             val = 1;
-        if(arg.equals("es"))
+        else if(arg.equals("es"))
             val = 2;
-        if(arg.equals("nt"))
+        else if(arg.equals("nt"))
             val = 3;
-        if(arg.equals("ph"))
+        else if(arg.equals("ph"))
             val = 4;
-        if(arg.equals("pb"))
+        else if(arg.equals("pb"))
             val = 5;
-        if(arg.equals("moy"))
+        else if(arg.equals("moy"))
             val = 6;
-        if(arg.equals("grad"))
+        else if(arg.equals("grad"))
             val = 7;
-        if(arg.equals("sat"))
+        else if(arg.equals("sat"))
             val = 8;
-        if(arg.equals("hue"))
+        else if(arg.equals("hue"))
             val = 9;
-        if(arg.equals("lum"))
+        else if(arg.equals("lum"))
             val = 10;
-        if(arg.equals("ilum"))
+        else if(arg.equals("ival"))
             val = 11;
-        if(arg.equals("neg"))
+        else if(arg.equals("neg"))
             val = 12;
-        if(arg.equals("ces"))
+        else if(arg.equals("ces"))
             val = 13;
-        if(arg.equals("br"))
+        else if(arg.equals("br"))
             val = 14;
-        if(arg.equals("sel"))
+        else if(arg.equals("sel"))
             val = 15;
-        if(arg.equals("red"))
+        else if(arg.equals("red"))
             val = 16;
+        else if(arg.equals("mel"))
+            val = 17;
+        else if(arg.equals("melhue"))
+            val = 18;
+        else if(arg.equals("rot"))
+            val = 19;
 
 /* Formation des strings d'aide */
         String help_header = "//////////////////////////////////////////////////\n"+
@@ -102,7 +108,7 @@ public class Main
 "-sat <flottant>\n"+
 "-hue <flottant[0 -> 360]>\n"+
 "-lum (n'existe plus)\n"+
-"-ilum (n'existe plus)\n"+
+"-ival (n'existe plus)\n"+
 "-neg\n"+
 "-ces <flottant[0->8]>\n"+
 "-br (non fonctionnel)\n\n"+
@@ -137,16 +143,16 @@ help_header + "-grad <direction[0=haut|1=droite|2=bas|3=gauche]>\n"+
 "Applique un filtre Gradient à l'image dans la direction choisie",
 
 help_header + "-sat <flottant>\n"+
-"Mulitplie la saturation de l'image par une valeur",
+"Multiplie la saturation de l'image par une valeur",
 
 help_header + "-hue <flottant[0 -> 360]>\n"+
 "Déplace la teinte de l'image",
 
-help_header + "-lum\n"+
-"N'existe plus/pas",
+help_header + "-lum <flottant>\n"+
+"Permet d'ajouter de la luminosité à l'image",
 
-help_header + "-ilum\n"+
-"N'existe plus/pas",
+help_header + "-ival\n"+
+"Inverse la valeur de l'image.",
 
 help_header + "-neg\n"+
 "Met l'image en négatif",
@@ -158,11 +164,15 @@ help_header + "-sel <entier[0->255]>\n"+
 "Applique un seuil à une image",
 
 help_header + "-red <flottant[0.5 -> 10 (conseillé)]><flottant[0.5 -> 10]>\n"+
-"Modifie les dimensions de l'image selon deux facteurs" };
+"Modifie les dimensions de l'image selon deux facteurs",
+
+help_header + "-mel <chemin>\nMélange deux images selon leur pixels RGB.",
+help_header + "-melhue <chemin>\nMélange deux images selon leur teinte.",
+help_header + "-rot <entier[0->360]\nApplique une rotation à l'image. [!] Peut faire sortir des pixels du cadre." };
 
     System.out.print(help);
     if(val >= 0)
-        System.out.print(help_cmd[val]);
+        System.out.print(help_cmd[val] + "\n");
     }
 
     public static void help() {
@@ -179,7 +189,7 @@ help_header + "-red <flottant[0.5 -> 10 (conseillé)]><flottant[0.5 -> 10]>\n"+
         String output = "output.ppm";
         PPMImage img;
 
-        for(int i = 1; i < args.length; i++) {
+        for(int i = 0; i < args.length; i++) {
             actargs = args[i];
 
             if(actargs.charAt(0) == '-') {
@@ -198,91 +208,95 @@ help_header + "-red <flottant[0.5 -> 10 (conseillé)]><flottant[0.5 -> 10]>\n"+
         else if (argst.size() == 0)
             help();
 
-        if(!(imgpath.equals(""))) {
+        if (imgpath != "")
             img = new PPMImage(imgpath);
-            ListIterator<Argument> it = argst.listIterator();
-            while (it.hasNext()) {
-                actarg = it.next();
-                if(actarg.getArg().equals("-o")) {
-                    output = actarg.getParameter(0);
-                }
-                else if(actarg.getArg().equals("-lp")) {
-                    img = new Laplacien().appliquer(img);
-                }
-                else if(actarg.getArg().equals("-es")) {
-                    img = new Estampage().appliquer(img);
-                }
-                else if(actarg.getArg().equals("-nt")) {
-                    img = new Nettete().appliquer(img);
-                }
-                else if(actarg.getArg().equals("-ph")) {
-                    img = new PasseHaut().appliquer(img);
-                }
-                else if(actarg.getArg().equals("-pb")) {
-                    img = new PasseBas().appliquer(img);
-                }
-                else if(actarg.getArg().equals("-moy")) {
-                    img = new Moyenne().appliquer(img);
-                }
-                else if(actarg.getArg().equals("-grad")) {
-                    img = new Gradient(Integer.parseInt(
-                        actarg.getParameter(0))).appliquer(img);
-                }
-                else if(actarg.getArg().equals("-sat")) {
-                    img = new Saturation(Double.parseDouble(
-                        actarg.getParameter(0))).appliquer(img);
-                }
-                else if(actarg.getArg().equals("-hue")) {
-                    img = new Teinte(Double.parseDouble(
-                        actarg.getParameter(0))).appliquer(img);
-                }
-                else if(actarg.getArg().equals("-lum")) {
-                    img = new Luminosite(Double.parseDouble(
-                        actarg.getParameter(0))).appliquer(img);
-                }
-                else if(actarg.getArg().equals("-ilum")) {
-                    img = new InverserLuminosite().appliquer(img);
-                }
-                else if(actarg.getArg().equals("-neg")) {
-                    img = new Negatif().appliquer(img);
-                }
-                else if(actarg.getArg().equals("-ces")) {
-                    img = new Courbe_En_S(Double.parseDouble(
-                        actarg.getParameter(0))).appliquer(img);
-                }
-                else if(actarg.getArg().equals("-br")) {
-                    System.out.println("N'est pas fontionnel !");
-                    img = new BicubicResize(Double.parseDouble(
-                        actarg.getParameter(0)),
-                    Double.parseDouble(
-                        actarg.getParameter(1))).appliquer(img);
-                }
-                else if(actarg.getArg().equals("-sel")) {
-                    img = new Seuil(Double.parseDouble(
-                        actarg.getParameter(0))).appliquer(img);
-                }
-                else if(actarg.getArg().equals("-h") || actarg.getArg().equals("-help")) {
-                    help(actarg.getParameter(0));
-                }
-                else if(actarg.getArg().equals("-red")) {
-                    img = new RedimVoisin(Double.parseDouble(
-                        actarg.getParameter(0)),
-                    Double.parseDouble(
-                        actarg.getParameter(1))).appliquer(img);
-                }
-                else if(actarg.getArg().equals("-mel")) {
-                    img = new MelangeImage(new PPMImage(actarg.getParameter(0))).appliquer(img);
-                }
-                else if(actarg.getArg().equals("-melhue")) {
-                    img = new MelangeImageTeinte(new PPMImage(actarg.getParameter(0))).appliquer(img);
-                }
-                else if(actarg.getArg().equals("-rot")) {
-                    img = new Rotation(Integer.parseInt(
-                        actarg.getParameter(0))).appliquer(img);
-                }
-            }
+        else
+            img = new PPMImage(1, 1, "P3");
 
-            img.save(output);
+        ListIterator<Argument> it = argst.listIterator();
+
+        while (it.hasNext()) {
+            actarg = it.next();
+            if(actarg.getArg().equals("-o")) {
+                output = actarg.getParameter(0);
+            }
+            else if(actarg.getArg().equals("-lp")) {
+                img = new Laplacien().appliquer(img);
+            }
+            else if(actarg.getArg().equals("-es")) {
+                img = new Estampage().appliquer(img);
+            }
+            else if(actarg.getArg().equals("-nt")) {
+                img = new Nettete().appliquer(img);
+            }
+            else if(actarg.getArg().equals("-ph")) {
+                img = new PasseHaut().appliquer(img);
+            }
+            else if(actarg.getArg().equals("-pb")) {
+                img = new PasseBas().appliquer(img);
+            }
+            else if(actarg.getArg().equals("-moy")) {
+                img = new Moyenne().appliquer(img);
+            }
+            else if(actarg.getArg().equals("-grad")) {
+                img = new Gradient(Integer.parseInt(
+                    actarg.getParameter(0))).appliquer(img);
+            }
+            else if(actarg.getArg().equals("-sat")) {
+                img = new Saturation(Double.parseDouble(
+                    actarg.getParameter(0))).appliquer(img);
+            }
+            else if(actarg.getArg().equals("-hue")) {
+                img = new Teinte(Double.parseDouble(
+                    actarg.getParameter(0))).appliquer(img);
+            }
+            else if(actarg.getArg().equals("-lum")) {
+                img = new Luminosite(Double.parseDouble(
+                    actarg.getParameter(0))).appliquer(img);
+            }
+            else if(actarg.getArg().equals("-ival")) {
+                img = new InverserValeur().appliquer(img);
+            }
+            else if(actarg.getArg().equals("-neg")) {
+                img = new Negatif().appliquer(img);
+            }
+            else if(actarg.getArg().equals("-ces")) {
+                img = new Courbe_En_S(Double.parseDouble(
+                    actarg.getParameter(0))).appliquer(img);
+            }
+            else if(actarg.getArg().equals("-br")) {
+                System.out.println("N'est pas fontionnel !");
+                img = new BicubicResize(Double.parseDouble(
+                    actarg.getParameter(0)),
+                Double.parseDouble(
+                    actarg.getParameter(1))).appliquer(img);
+            }
+            else if(actarg.getArg().equals("-sel")) {
+                img = new Seuil(Double.parseDouble(
+                    actarg.getParameter(0))).appliquer(img);
+            }
+            else if(actarg.getArg().equals("-h") || actarg.getArg().equals("-help")) {
+                help(actarg.getParameter(0));
+            }
+            else if(actarg.getArg().equals("-red")) {
+                img = new RedimVoisin(Double.parseDouble(
+                    actarg.getParameter(0)),
+                Double.parseDouble(
+                    actarg.getParameter(1))).appliquer(img);
+            }
+            else if(actarg.getArg().equals("-mel")) {
+                img = new MelangeImage(new PPMImage(actarg.getParameter(0))).appliquer(img);
+            }
+            else if(actarg.getArg().equals("-melhue")) {
+                img = new MelangeImageTeinte(new PPMImage(actarg.getParameter(0))).appliquer(img);
+            }
+            else if(actarg.getArg().equals("-rot")) {
+                img = new Rotation(Integer.parseInt(
+                    actarg.getParameter(0))).appliquer(img);
+            }
         }
+
+        if (imgpath != "")
+            img.save(output);
     }
 }

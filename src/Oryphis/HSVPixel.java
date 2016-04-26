@@ -54,8 +54,7 @@ public class HSVPixel {
 
     public void addValue(double value) {
         v += value;
-        if(v > 1.0) v = 1.0;
-        else if(v < 0.0) v = 0.0;
+        if(v < 0.0) v = 0.0;
     }
 
     /**

@@ -3,12 +3,11 @@ package Oryphis.filtres;
 import Oryphis.PPMImage;
 import Oryphis.filtres.Masque;
 
+/**
+ * Estampage :  Il permet de simuler un effet d'aplatissement en 
+ * supprimant les détails et en rajoutant du relief dans les contours.
+ */
 public class Estampage extends Filtre {
-	/**
-	 * filtre Estampage :  Il permet de simuler un effet d'aplatissement en 
-	 * supprimant les détails et en rajoutant du relief dans les contours.
-	 */
-
     //doc utile : http://xmcvs.free.fr/astroart/Chapitre4.pdf
     public Estampage() {
         this.masque = new Masque();
@@ -18,12 +17,13 @@ public class Estampage extends Filtre {
                                
         this.masque.diviseur = 1;
     }
+    
     /**
-     * applique le filtre à une image
+     * Applique le filtre à une image
      *
-     * @param      img   { image à modifier }
+     * @param      img   image à modifier
      *
-     * @return     { applique le filtre }
+     * @return     L'image à qui on a appliqué le filtre
      */
     public PPMImage appliquer(PPMImage img) {
         return this.appliquer_masque(img);

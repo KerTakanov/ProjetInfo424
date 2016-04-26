@@ -4,6 +4,9 @@ import Oryphis.Pixel;
 import Oryphis.PPMImage;
 import Oryphis.filtres.Moyenne;
 
+/**
+ * Classe non fonctionnelle, ne pas utiliser
+ */
 public class BicubicResize extends Filtre {
 	private double wcoeff;
 	private double hcoeff;

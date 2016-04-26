@@ -2,6 +2,7 @@ package Oryphis.filtres;
 
 import Oryphis.PPMImage;
 import Oryphis.Pixel;
+
 /**
  * Permet de gérer un masque qui sera appliqué par un filtre.
  */
@@ -22,9 +23,12 @@ public class Masque {
         this.masque = new int[w][h];
     }
 
+    /**
+     * Constructeur par défaut.
+     */
     public Masque() {
         this(0, 0);
-    };
+    }
 
     /**
      * Applique le masque sur un pixel.
@@ -56,8 +60,6 @@ public class Masque {
 
             if(rgb[i] < 0)
                 rgb[i] = 0;
-            if(rgb[i] > imgdest.getMaxRGB())
-                imgdest.setMaxRGB(rgb[i]);
 
             imgdest.setColor(i, x, y, rgb[i]);
         }

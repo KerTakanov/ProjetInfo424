@@ -6,7 +6,9 @@ import Oryphis.filtres.Masque;
 import Oryphis.HSVPixel;
 import Oryphis.Pixel;
 
-//Modifie la teinte d'une image d'une image (ajoute une valeur à la teinte).
+/**
+ * Modifie la teinte d'une image d'une image (ajoute une valeur à la teinte).
+ */
 public class Teinte extends Filtre {
     private double valeur;
 
@@ -16,11 +18,11 @@ public class Teinte extends Filtre {
     }
 
     /**
-     * applique le filtre à une image
+     * Applique le filtre à une image
      *
-     * @param      img   { image à modifier }
+     * @param      img   image à modifier
      *
-     * @return     { applique le filtre }
+     * @return     L'image à qui on a appliqué le filtre
      */
     public PPMImage appliquer(PPMImage img) {
         PPMImage img2 = new PPMImage(img);
@@ -34,13 +36,6 @@ public class Teinte extends Filtre {
                 rgbp = p.to_rgb();
 
                 img2.setPixel(x, y, rgbp);
-
-                if(rgbp.r > img2.getMaxRGB())
-                    img2.setMaxRGB(rgbp.r);
-                if(rgbp.g > img2.getMaxRGB())
-                    img2.setMaxRGB(rgbp.g);
-                if(rgbp.b > img2.getMaxRGB())
-                    img2.setMaxRGB(rgbp.b);
             }
         }
 

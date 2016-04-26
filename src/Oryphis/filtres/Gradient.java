@@ -3,16 +3,18 @@ package Oryphis.filtres;
 import Oryphis.PPMImage;
 import Oryphis.filtres.Masque;
 
+/**
+ * Gradient : permet un effet de relief qui permet de 
+ * visualiser de faibles variations de luminosité.
+ */
 public class Gradient extends Filtre {
 
 	/**
 	 * filtre Gradient : permet un effet de relief qui permet de 
 	 * visualiser de faibles variations de luminosité.
 	 *
-	 * @param      direction  { permet de choisir la direction 
-	 * 							de la plus forte variation du clair au sombre }
+	 * @param      direction  Définit la direction dans laquelle appliquer le filtre
 	 */
-
 	public Gradient(int direction) {
 		this.masque = new Masque();
 		if(direction == 1)
@@ -33,14 +35,14 @@ public class Gradient extends Filtre {
 							   //Matrice de convolution du filtre gradient allant de droite a gauche
 		this.masque.diviseur = 1;
 	}
-/**
-     * applique le filtre à une image
+	
+	/**
+     * Applique le filtre à une image
      *
-     * @param      img   { image à modifier }
+     * @param      img   image à modifier
      *
-     * @return     { applique le filtre }
+     * @return     L'image à qui on a appliqué le filtre
      */
-
     public PPMImage appliquer(PPMImage img) {
         return this.appliquer_masque(img);
     }

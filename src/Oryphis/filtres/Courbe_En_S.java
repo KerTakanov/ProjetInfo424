@@ -3,19 +3,31 @@ package Oryphis.filtres;
 import Oryphis.filtres.Masque;
 import Oryphis.PPMImage;
 
-//import java.lang.Math;
-
+/**
+ * Courbe en S: Applique un contraste à l'image à l'aide de la courbe en S.
+ */
 public class Courbe_En_S extends Filtre{
 	private double d;
 
+	/**
+	 * @param d Le contraste à appliquer
+	 */
 	public Courbe_En_S(double d){
 		this.d = d;
 	}
 
+	/**
+     * Applique le filtre à une image
+     *
+     * @param      img   image à modifier
+     *
+     * @return     L'image à qui on a appliqué le filtre
+     */
 	public PPMImage appliquer(PPMImage img) {
 		PPMImage img2 = new PPMImage(img);
 		img2.setMaxRGB(img.getMaxRGB());
 
+		//Calcule de la moyenne de chaque composante
         double moy[] = new double[3];
         moy[0] = 0.0;
         moy[1] = 0.0;
@@ -34,6 +46,7 @@ public class Courbe_En_S extends Filtre{
 			moy[i] = moy[i] / (img.getWidth() * img.getHeight());
 		}	
 
+		//Calcul de la courbe en S.
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < img.getWidth(); j++) {
 				for(int k = 0; k < img.getHeight(); k++) {
