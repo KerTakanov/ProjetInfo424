@@ -37,13 +37,15 @@ public class Pixel {
     public HSVPixel to_hsv() {
         HSVPixel res = new HSVPixel();
 
-        double min = Math.min(r, Math.min(g, b));
         double max = Math.max(r, Math.max(g, b));
+        double min = Math.min(r, Math.min(g, b));
 
         double delta = max - min;
 
+        //Calcul de la valeur
         res.v = max;
 
+        //Delta est très proche de 0, pixel noir
         if(delta < 0.00001) {
             res.s = 0.0;
             res.h = 0.0;
@@ -51,16 +53,21 @@ public class Pixel {
             return res;
         }
 
+        //Calcul de la saturation
         if(max > 0.0)
+            //max /= 0
             res.s = delta/max;
         else {
+            //max = 0
             res.s = 0.0;
             res.h = Double.NaN;
 
             return res;
         }
+
+        //Calcul de la teinte (hue)
         if(r >= max)
-            res.h = (g - b) / delta;
+            res.h = ((g - b) / delta) % 6;
         else {
             if(g >= max)
                 res.h = 2.0 + (b - r) / delta;
@@ -68,8 +75,10 @@ public class Pixel {
                 res.h = 4.0 + (r - g) / delta;
         }
 
+        // * 60°
         res.h *= 60.0;
 
+        //Tentative de correction d'erreur
         if(res.h < 0.0)
             res.h += 360.0;
 
@@ -78,7 +87,6 @@ public class Pixel {
 
     /**
      * Multiplie toutes les composantes d'un pixel par un coefficient.
-     * Ne permet pas de dépasser 255.
      *
      * @param      coeff  le coefficient par lequel on multiplie
      */
@@ -86,10 +94,6 @@ public class Pixel {
         r *= coeff;
         g *= coeff;
         b *= coeff;
-
-        if(r > 255.0) r = 255.0;
-        if(g > 255.0) g = 255.0;
-        if(b > 255.0) b = 255.0;
     }
 
     /**

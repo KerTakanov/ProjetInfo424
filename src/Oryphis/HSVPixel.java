@@ -83,47 +83,56 @@ public class HSVPixel {
         Pixel res = new Pixel();
 
         double chroma = v * s;
+
+        //On regarde dans quelle partie du cercle on est
         double hprime = (h%360.0) / 60.0;
 
         double x = chroma * (1 - Math.abs(hprime % 2 - 1));
 
+        double m = v - chroma;
+
+        //Pixel invalide => pixel noir
         if(Double.isNaN(h)) {
             res.r = 0.0;
             res.g = 0.0;
             res.b = 0.0;
         }
         else if(0 <= hprime && hprime < 1) {
+            //0° <= h < 60°
             res.r = chroma;
             res.g = x;
             res.b = 0.0;
         }
         else if(1 <= hprime && hprime < 2) {
+            //60° <= h < 120°
             res.r = x;
             res.g = chroma;
             res.b = 0.0;
         }
         else if(2 <= hprime && hprime < 3) {
+            //120° <= h < 180°
             res.r = 0.0;
             res.g = chroma;
             res.b = x;
         }
         else if(3 <= hprime && hprime < 4) {
+            //180° <= h < 240°
             res.r = 0.0;
             res.g = x;
             res.b = chroma;
         }
         else if(4 <= hprime && hprime < 5) {
+            //240° <= h < 300°
             res.r = x;
             res.g = 0.0;
             res.b = chroma;
         }
         else if(5 <= hprime && hprime < 6) {
+            //300° <= h < 360°
             res.r = chroma;
             res.g = 0.0;
             res.b = x;
         }
-
-        double m = v - chroma;
 
         res.r += m;
         res.g += m;
