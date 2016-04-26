@@ -55,7 +55,7 @@ public class PPMImage {
     }
 
     /**
-     * Construteur d'image bis
+     * Fait une copie profonde d'une autre image
      *
      * @param      img    prend une image au format ppm
      * 

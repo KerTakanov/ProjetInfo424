@@ -31,14 +31,12 @@ public class Masque {
     }
 
     /**
-     * Applique le masque sur un pixel.
-     * L'image en entrée n'est pas modifiée.
-     *
-     * @param      x     la position x du pixel
-     * @param      y     la position y du pixel
-     * @param      img   l'image depuis laquelle on applique le masque
-     *
-     * @return     le pixel à qui on a appliqué le filtre
+     * Applique le masque sur un pixel d'une image
+     * 
+     * @param x La coordonnée x du pixel
+     * @param y La coordonnée y du pixel
+     * @param imgori L'image d'origine
+     * @param imgdest L'image de destination
      */
     public void appliquer(int x, int y, PPMImage imgori, PPMImage imgdest) {
         int[] rgb = {0, 0, 0};
