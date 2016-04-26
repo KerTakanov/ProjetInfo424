@@ -2,16 +2,23 @@ package Oryphis;
 
 import Oryphis.Pixel;
 
+/**
+ * Définit un pixel en mode HSV (hue saturation value / teinte saturation valeur)
+ */
 public class HSVPixel {
     public double h;
     public double s;
     public double v;
 
+    /**
+     * Constructeur par défaut
+     */
     public HSVPixel() {
         h = 0.0;
         s = 0.0;
         v = 0.0;
     }
+
     /**
      * Créé un pixel avec les couleurs HSV.
      *
@@ -37,7 +44,7 @@ public class HSVPixel {
     }
 
     /**
-     * Permet d'augmenter la saturation en additionnant un nombre 
+     * Ajoute de la saturation au pixel
      *
      * @param      sat   { parameter_description }
      */
@@ -47,20 +54,30 @@ public class HSVPixel {
         else if(s < 0.0) s = 0.0;
     }
 
+    /**
+     * Ajoute de la teinte au pixel
+     * 
+     * @param hue La teinte à ajouter
+     */
     public void addHue(double hue) {
         h += hue;
         h %= 360.0;
     }
 
+    /**
+     * Ajoute de la valeur au pixel
+     * 
+     * @param value La valeur à ajouter
+     */
     public void addValue(double value) {
         v += value;
         if(v < 0.0) v = 0.0;
     }
 
     /**
-     * Permet de transformer des pixels HSV en format rgb
+     * Converti vers un pixel RGB puis le retourne.
      *
-     * @return     { les pixels HSV en RGB }
+     * @return Un pixel RGB
      */
     public Pixel to_rgb() {
         Pixel res = new Pixel();

@@ -1,5 +1,7 @@
 package Oryphis.transfos;
 
+import Oryphis.PPMImage;
+
 class Redimensionner extends Transformation {
 	private double wcoeff;
 	private double hcoeff;

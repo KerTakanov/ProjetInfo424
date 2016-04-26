@@ -7,6 +7,9 @@ public class Pixel {
     public double g;
     public double b;
 
+    /**
+     * Constructeur par défaut
+     */
     public Pixel() {
         r = 0.0;
         g = 0.0;

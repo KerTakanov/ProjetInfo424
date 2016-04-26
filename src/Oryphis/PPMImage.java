@@ -13,6 +13,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.Color;
 
+/**
+ * Définit une image au format ppm
+ */
 public class PPMImage {
     private int width;
     private int height;
@@ -22,8 +25,6 @@ public class PPMImage {
 
     /**
      * Constructeur par défaut, créé une image vide.
-     * 
-     * @return
      */
     public PPMImage() {
         width = 0;
@@ -119,6 +120,7 @@ public class PPMImage {
     }
 
     /**
+     * Retourne la valeur RGB max
      * 
      * @return La valeur rgb max
      */
@@ -230,6 +232,17 @@ public class PPMImage {
         return c == 0 ? pixels[x][y].r : c == 1 ? pixels[x][y].g : pixels[x][y].b;
     }
 
+    /**
+     * Permet de définir la valeur d'une composante
+     * 0 = rouge
+     * 1 = vert
+     * 2 = bleu
+     * 
+     * @param c numéro de la composante
+     * @param x coordonnée x du pixel
+     * @param y coordonnée y du pixel
+     * @param val la nouvelle valeur de la composante
+     */
     public void setColor(int c, int x, int y, double val) {
         if (c == 0) r(x, y, val);
         else if (c == 1) g(x, y, val);
